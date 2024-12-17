@@ -12,11 +12,11 @@ a whiteout survival giftcode redeemer + utility bot
 
 # configuration
 
-this repo contains an example of the [configuration file](config.json) `config.json`, which has 3 values to configure.
+this repo contains an example of the [configuration file](config.py) `config.py`, which has 3 values to configure.
 
-1. `botToken`: your discord bot token
-2. `playersFile`: the path of the players list
-3. `allianceName`: your alliance name (e.g. `INF`)
+1. `BOT_TOKEN`: your discord bot token
+2. `PLAYERS_FILE`: the path of the players list
+3. `ALLIANCE_NAME`: your alliance name (e.g. `INF`)
 
 # commands / features
 
