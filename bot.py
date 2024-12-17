@@ -1,11 +1,10 @@
 import interactions as discord
-import json
+import config
 
 client = discord.Client(intents=discord.Intents.GUILDS)
 
-with open("config.json", "r") as f:
-    client.CONFIG = json.load(f)
+client.config = config.Config()
     
 client.load_extensions("cogs")
     
-client.start(client.CONFIG["botToken"])
+client.start(client.config.BOT_TOKEN)

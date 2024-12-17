@@ -178,7 +178,7 @@ class Giftcode(discord.Extension):
             await ctx.send("error: this command has a limit of 1 use every 1 minute to comply with WOS's rate limits.")
             return
         
-        with open(self.bot.CONFIG["playersFile"], "r") as f:
+        with open(self.bot.config.PLAYERS_FILE, "r") as f:
             playersObj = json.load(f)
             
         players = [{"id": key, "name": playersObj[key]} for key in playersObj]
@@ -201,10 +201,10 @@ class Giftcode(discord.Extension):
         sub_cmd_description="list all users in the database"
     )
     async def list_users(self, ctx: discord.SlashContext):
-        with open(self.bot.CONFIG["playersFile"], "r") as f:
+        with open(self.bot.config.PLAYERS_FILE, "r") as f:
             players = json.load(f)
             
-        players_list = "\n".join([f"{player_id}: [{self.bot.CONFIG['allianceName']}] {player_name}" for player_id, player_name in players.items()])
+        players_list = "\n".join([f"{player_id}: [{self.bot.config.ALLIANCE_NAME}] {player_name}" for player_id, player_name in players.items()])
         
         fake_file = io.BytesIO(players_list.encode("utf-8"))
         await ctx.send(content=f"{len(players.items())} people in database", file=discord.File(fake_file, file_name="users.txt"), filename="users.txt")
@@ -233,7 +233,7 @@ class Giftcode(discord.Extension):
     )
     async def add(self, ctx: discord.SlashContext, name: str, id: str):    
         if intable(id):
-            with open(self.bot.CONFIG["playersFile"], "r") as f:
+            with open(self.bot.config.PLAYERS_FILE, "r") as f:
                 players = json.load(f)
                 
             if id in players:
@@ -242,7 +242,7 @@ class Giftcode(discord.Extension):
                 
             players[id] = name
             
-            with open(self.bot.CONFIG["playersFile"], "w") as f:
+            with open(self.bot.config.PLAYERS_FILE, "w") as f:
                 json.dump(players, f, indent=4)
                 
             await ctx.send(f"added user {name} to the list.")
@@ -267,14 +267,14 @@ class Giftcode(discord.Extension):
         ]
     )
     async def remove(self, ctx: discord.SlashContext, user: str):
-        with open(self.bot.CONFIG["playersFile"], "r") as f:
+        with open(self.bot.config.PLAYERS_FILE, "r") as f:
             players = json.load(f)
             
         name = players[user]
         
         del players[user]
                 
-        with open(self.bot.CONFIG["playersFile"], "w") as f:
+        with open(self.bot.config.PLAYERS_FILE, "w") as f:
             json.dump(players, f, indent=4)
             
         await ctx.send(f"removed user {name} from the list.")
@@ -303,14 +303,14 @@ class Giftcode(discord.Extension):
         ]
     )
     async def rename(self, ctx: discord.SlashContext, user: str, new_name: str):
-        with open(self.bot.CONFIG["playersFile"], "r") as f:
+        with open(self.bot.config.PLAYERS_FILE, "r") as f:
             players = json.load(f)
             
         name = players[user]
         
         players[user] = new_name
                 
-        with open(self.bot.CONFIG["playersFile"], "w") as f:
+        with open(self.bot.config.PLAYERS_FILE, "w") as f:
             json.dump(players, f, indent=4)
             
         await ctx.send(f"changed {name}'s name to {new_name}.")
@@ -320,11 +320,11 @@ class Giftcode(discord.Extension):
     async def user_autocomplete(self, ctx: discord.AutocompleteContext):
         name = ctx.input_text
         
-        with open(self.bot.CONFIG["playersFile"], "r") as f:
+        with open(self.bot.config.PLAYERS_FILE, "r") as f:
             players = json.load(f)
             
-        if name.startswith(self.bot.CONFIG["allianceName"]):
-            name = name.replace(self.bot.CONFIG["allianceName"], "")
+        if name.startswith(self.bot.config.ALLIANCE_NAME):
+            name = name.replace(self.bot.config.ALLIANCE_NAME, "")
             
         results = [(player_id, player_name, match_score(name, player_name)) for player_id, player_name in players.items()]
             
@@ -334,4 +334,4 @@ class Giftcode(discord.Extension):
         
         best_matches = [match for match in results if match[2] >= max_score * (1 - 0.3)]
         
-        await ctx.send(choices=[{"name": f"[{self.bot.CONFIG['allianceName']}] {player_name}", "value": player_id} for player_id, player_name, _ in (best_matches[:25] if len(best_matches) else results[:25])])
+        await ctx.send(choices=[{"name": f"[{self.bot.config.ALLIANCE_NAME}] {player_name}", "value": player_id} for player_id, player_name, _ in (best_matches[:25] if len(best_matches) else results[:25])])
