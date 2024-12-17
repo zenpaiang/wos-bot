@@ -39,7 +39,7 @@ this repo contains an example of the [configuration file](config.py) `config.py`
 # task list / future features
 
 - [x] ~~migrate configuration from a json file to a python class~~ ([`ff0927c`](https://github.com/zenpaiang/wos-bot/commit/ff0927c55edbd2d070a0239b588a48f77ea415a1))
-- [ ] remove alliance tag dependency
+- [x] ~~remove alliance tag dependency~~ ([`6b64144`](https://github.com/zenpaiang/wos-bot/commit/6b64144ec9da8044fe360f5851112fcece4e0216))
 - [ ] add event-related commands
 - [ ] add an auto-update feature
 - [ ] add calculator for resources needed
