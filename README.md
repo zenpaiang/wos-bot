@@ -39,6 +39,7 @@ this repo contains an example of the [configuration file](config.py) `config.py`
 
 - [x] ~~migrate configuration from a json file to a python class~~ ([`ff0927c`](https://github.com/zenpaiang/wos-bot/commit/ff0927c55edbd2d070a0239b588a48f77ea415a1))
 - [x] ~~remove alliance tag dependency~~ ([`6b64144`](https://github.com/zenpaiang/wos-bot/commit/6b64144ec9da8044fe360f5851112fcece4e0216))
+- [ ] add fire crystal amounts from wos-database
 - [ ] add calculator for resources needed
 
 ## scrapped ideas
