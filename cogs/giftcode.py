@@ -8,6 +8,10 @@ import json
 import time
 import ssl
 import io
+import re
+
+def sanitize_username(name: str) -> str:    
+    return re.sub(r"^\[[A-Za-z0-9]{3}\]", "", name.replace("\u00a0", " ")).strip()
 
 def intable(s: str) -> bool:
     try:
@@ -204,7 +208,7 @@ class Giftcode(discord.Extension):
         with open(self.bot.config.PLAYERS_FILE, "r") as f:
             players = json.load(f)
             
-        players_list = "\n".join([f"{player_id}: [{self.bot.config.ALLIANCE_NAME}] {player_name}" for player_id, player_name in players.items()])
+        players_list = "\n".join([f"{player_id}: {player_name}" for player_id, player_name in players.items()])
         
         fake_file = io.BytesIO(players_list.encode("utf-8"))
         await ctx.send(content=f"{len(players.items())} people in database", file=discord.File(fake_file, file_name="users.txt"), filename="users.txt")
@@ -233,6 +237,8 @@ class Giftcode(discord.Extension):
     )
     async def add(self, ctx: discord.SlashContext, name: str, id: str):    
         if intable(id):
+            name = sanitize_username(name)
+            
             with open(self.bot.config.PLAYERS_FILE, "r") as f:
                 players = json.load(f)
                 
@@ -306,6 +312,8 @@ class Giftcode(discord.Extension):
         with open(self.bot.config.PLAYERS_FILE, "r") as f:
             players = json.load(f)
             
+        new_name = sanitize_username(new_name)
+            
         name = players[user]
         
         players[user] = new_name
@@ -323,15 +331,18 @@ class Giftcode(discord.Extension):
         with open(self.bot.config.PLAYERS_FILE, "r") as f:
             players = json.load(f)
             
-        if name.startswith(self.bot.config.ALLIANCE_NAME):
-            name = name.replace(self.bot.config.ALLIANCE_NAME, "")
+        name = sanitize_username(name)
             
         results = [(player_id, player_name, match_score(name, player_name)) for player_id, player_name in players.items()]
             
         results.sort(reverse=True, key=lambda x: x[2])
         
+        if not len(results):
+            await ctx.send(choices=[])
+            return
+        
         max_score = max(results[:25], key=lambda x: x[2])[2]
         
         best_matches = [match for match in results if match[2] >= max_score * (1 - 0.3)]
         
-        await ctx.send(choices=[{"name": f"[{self.bot.config.ALLIANCE_NAME}] {player_name}", "value": player_id} for player_id, player_name, _ in (best_matches[:25] if len(best_matches) else results[:25])])
+        await ctx.send(choices=[{"name": player_name, "value": player_id} for player_id, player_name, _ in (best_matches[:25] if len(best_matches) else results[:25])])
