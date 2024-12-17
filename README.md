@@ -16,7 +16,6 @@ this repo contains an example of the [configuration file](config.py) `config.py`
 
 1. `BOT_TOKEN`: your discord bot token
 2. `PLAYERS_FILE`: the path of the players list
-3. `ALLIANCE_NAME`: your alliance name (e.g. `INF`)
 
 # commands / features
 
