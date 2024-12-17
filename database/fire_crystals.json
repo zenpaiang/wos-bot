@@ -1,0 +1,47 @@
+{
+    "FC1": {
+        "furnace": 132,
+        "infantry_camp": 59,
+        "lancer_camp": 59,
+        "marksman_camp": 59,
+        "infirmary": 26,
+        "embassy": 33,
+        "command_center": 26
+    },
+    "FC2": {
+        "furnace": 158,
+        "infantry_camp": 71,
+        "lancer_camp": 71,
+        "marksman_camp": 71,
+        "infirmary": 31,
+        "embassy": 39,
+        "command_center": 31
+    },
+    "FC3": {
+        "furnace": 238,
+        "infantry_camp": 107,
+        "lancer_camp": 107,
+        "marksman_camp": 107,
+        "infirmary": 47,
+        "embassy": 59,
+        "command_center": 47
+    },
+    "FC4": {
+        "furnace": 280,
+        "infantry_camp": 126,
+        "lancer_camp": 126,
+        "marksman_camp": 126,
+        "infirmary": 56,
+        "embassy": 70,
+        "command_center": 56
+    },
+    "FC5": {
+        "furnace": 335,
+        "infantry_camp": 150,
+        "lancer_camp": 150,
+        "marksman_camp": 150,
+        "infirmary": 67,
+        "embassy": 83,
+        "command_center": 67
+    }
+}

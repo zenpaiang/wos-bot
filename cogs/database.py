@@ -37,6 +37,9 @@ class Database(discord.Extension):
             
         with open("database/chief_charm.json", "r") as f:
             self.databaseChiefCharm = json.load(f)
+            
+        with open("database/fire_crystals.json", "r") as f:
+            self.databaseFireCrystals = json.load(f)
     
     @discord.slash_command(
         name="database",
@@ -261,6 +264,47 @@ class Database(discord.Extension):
             embed.add_field(f"Materials Needed (from Lvl. {current} {type.capitalize()} Charm)", f"{totalCostToGet['charm_design']} <:charm_design:1316342556317057095>\n{totalCostToGet['charm_guide']} <:charm_guide:1316342536163426344>", inline=True)
         
         embed.set_thumbnail(url)
+        embed.set_footer("powered by wos-database 💖")
+        
+        await ctx.send(embed=embed)
+        
+    @database_cmd.subcommand(
+        sub_cmd_name="fire_crystals",
+        sub_cmd_description="fire crystal amount requirements",
+        options=[
+            discord.SlashCommandOption(
+                name="level",
+                description="the fire crystal building level",
+                type=discord.OptionType.INTEGER,
+                required=True,
+                choices=[
+                    discord.SlashCommandChoice(
+                        name=f"FC{i + 1}",
+                        value=i + 1
+                    ) for i in range(5)
+                ]
+            )
+        ]
+    )
+    async def fire_crystals(self, ctx: discord.SlashContext, level: int):    
+        embed_content = ""
+        
+        total = 0
+        
+        for building in self.databaseFireCrystals[f"FC{level}"]:
+            building_name = building.replace("_", " ").title()
+            embed_content += f"**{building_name}:** {self.databaseFireCrystals[f'FC{level}'][building]} <:fire_crystal:1318532416188710942>\n"
+            total += self.databaseFireCrystals[f'FC{level}'][building]
+        
+        embed_content += f"\n**Total:** {total} <:fire_crystal:1318532416188710942>"
+        embed_content += f"\n**Total x 5:** {total * 5} <:fire_crystal:1318532416188710942>"
+        
+        embed = discord.Embed(
+            title=f"Fire Crystal Lvl. {level}",
+            color=0xd53034,
+            description=embed_content
+        )
+
         embed.set_footer("powered by wos-database 💖")
         
         await ctx.send(embed=embed)
