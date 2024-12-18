@@ -7,12 +7,13 @@ a whiteout survival giftcode redeemer + utility bot
 1. clone this repository `git clone https://github.com/zenpaiang/wos-bot.git`
 2. go into the directory `cd wos-bot`
 3. install requirements `pip install -r requirements.txt`
-4. [configure](#configuration) the bot
-5. run the bot `python bot.py`
+4. rename `config.example.py` to `config.py`
+5. [configure](#configuration) the bot
+6. run the bot `python bot.py`
 
 # configuration
 
-this repo contains an example of the [configuration file](config.py) `config.py`, which has 3 values to configure.
+this repo contains an example of the [configuration file](config.example.py) `config.example.py`, which has 3 values to configure.
 
 1. `BOT_TOKEN`: your discord bot token
 2. `PLAYERS_FILE`: the path of the players list
