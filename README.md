@@ -8,8 +8,9 @@ a whiteout survival giftcode redeemer + utility bot
 2. go into the directory `cd wos-bot`
 3. install requirements `pip install -r requirements.txt`
 4. rename `config.example.py` to `config.py`
-5. [configure](#configuration) the bot
-6. run the bot `python bot.py`
+5. rename `players.example.json` to `players.json`
+6. [configure](#configuration) the bot
+7. run the bot `python bot.py`
 
 # configuration
 
