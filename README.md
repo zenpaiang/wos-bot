@@ -42,7 +42,7 @@ this repo contains an example of the [configuration file](config.example.py) `co
 - [x] ~~migrate configuration from a json file to a python class~~ ([`ff0927c`](https://github.com/zenpaiang/wos-bot/commit/ff0927c55edbd2d070a0239b588a48f77ea415a1))
 - [x] ~~remove alliance tag dependency~~ ([`6b64144`](https://github.com/zenpaiang/wos-bot/commit/6b64144ec9da8044fe360f5851112fcece4e0216))
 - [x] ~~add fire crystal amounts from wos-database~~ ([`8d3f4a4`](https://github.com/zenpaiang/wos-bot/commit/8d3f4a47ca7c7657a135ce929901e93ba37b290f))
-- [ ] add fire crystal thumbnails from wos-database
+- [x] ~~add fire crystal thumbnails from wos-database~~ ([`eefea93`](https://github.com/zenpaiang/wos-bot/commit/eefea93b86c3dc0ed693ad19b4862663ee66ea8c))
 
 ## scrapped ideas / unlikely to do
 
