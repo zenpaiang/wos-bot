@@ -35,15 +35,17 @@ this repo contains an example of the [configuration file](config.example.py) `co
 
 1. `chief_gear`: get information about a rarity of chief gear or the amount of resources needed to upgrade to that rarity
 2. `chief_charm`: get information about a rarity of chief charm or the amount of resources needed to upgrade to that rarity
+3. `fire_crystals`: get amount of fire crystals needed to upgrade buildings
 
 # task list / future features
 
 - [x] ~~migrate configuration from a json file to a python class~~ ([`ff0927c`](https://github.com/zenpaiang/wos-bot/commit/ff0927c55edbd2d070a0239b588a48f77ea415a1))
 - [x] ~~remove alliance tag dependency~~ ([`6b64144`](https://github.com/zenpaiang/wos-bot/commit/6b64144ec9da8044fe360f5851112fcece4e0216))
 - [x] ~~add fire crystal amounts from wos-database~~ ([`8d3f4a4`](https://github.com/zenpaiang/wos-bot/commit/8d3f4a47ca7c7657a135ce929901e93ba37b290f))
-- [ ] add calculator for resources needed
+- [ ] add fire crystal thumbnails from wos-database
 
-## scrapped ideas
+## scrapped ideas / unlikely to do
 
 - [ ] add event-related commands
 - [ ] add an auto-update feature
+- [ ] add resource amount calculator
