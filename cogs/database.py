@@ -300,9 +300,12 @@ class Database(discord.Extension):
         embed_content += f"\n**Total x 5:** {total * 5} <:fire_crystal:1318532416188710942>"
         
         embed = discord.Embed(
-            title=f"Fire Crystal Lvl. {level}",
+            title=f"FC{level} Buildings",
             color=0xd53034,
-            description=embed_content
+            description=embed_content,
+            thumbnail=discord.EmbedAttachment(
+                url=f"https://raw.githubusercontent.com/zenpaiang/wos-database/refs/heads/master/fire_crystals/fc{level}.png",
+            )
         )
 
         embed.set_footer("powered by wos-database 💖")
