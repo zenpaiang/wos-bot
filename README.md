@@ -44,7 +44,7 @@ this repo contains an example of the [configuration file](config.example.py) `co
 - [x] ~~remove alliance tag dependency~~ ([`6b64144`](https://github.com/zenpaiang/wos-bot/commit/6b64144ec9da8044fe360f5851112fcece4e0216))
 - [x] ~~add fire crystal amounts from wos-database~~ ([`8d3f4a4`](https://github.com/zenpaiang/wos-bot/commit/8d3f4a47ca7c7657a135ce929901e93ba37b290f))
 - [x] ~~add fire crystal thumbnails from wos-database~~ ([`eefea93`](https://github.com/zenpaiang/wos-bot/commit/eefea93b86c3dc0ed693ad19b4862663ee66ea8c))
-- [ ] add paginator for user list
+- [x] ~~add paginator for user list~~ ([`f3680b4`](https://github.com/zenpaiang/wos-bot/commit/f3680b4c49929a0c178f771a2829891e071bdd91))
 
 ## scrapped ideas / unlikely to do
 
