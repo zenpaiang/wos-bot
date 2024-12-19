@@ -215,7 +215,7 @@ class Giftcode(discord.Extension):
         embeds = [
             discord.Embed(
                 title="players list",
-                description=f"{content}\n\nmade with ❤️ by zenpai :D",
+                description=f"**total players:** {len(players.items())}\n\n{content}\n\nmade with ❤️ by zenpai :D",
                 color=0x4fa5fc
             ) for content in embeds_content
         ]
