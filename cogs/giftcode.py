@@ -1,3 +1,4 @@
+from interactions.ext.paginators import Paginator
 from difflib import SequenceMatcher
 import interactions as discord
 import hashlib
@@ -7,7 +8,6 @@ import certifi
 import json
 import time
 import ssl
-import io
 import re
 
 def sanitize_username(name: str) -> str:    
@@ -208,10 +208,25 @@ class Giftcode(discord.Extension):
         with open(self.bot.config.PLAYERS_FILE, "r") as f:
             players = json.load(f)
             
-        players_list = "\n".join([f"{player_id}: {player_name}" for player_id, player_name in players.items()])
+        players_list = [f"**{player_name}**" for _, player_name in players.items()]
         
-        fake_file = io.BytesIO(players_list.encode("utf-8"))
-        await ctx.send(content=f"{len(players.items())} people in database", file=discord.File(fake_file, file_name="users.txt"), filename="users.txt")
+        embeds_content = ["\n".join(players_list[i:i + 10]) for i in range(0, len(players_list), 10)]
+        
+        embeds = [
+            discord.Embed(
+                title="players list",
+                description=f"{content}\n\nmade with ❤️ by zenpai :D",
+                color=0x4fa5fc
+            ) for content in embeds_content
+        ]
+        
+        paginator = Paginator.create_from_embeds(self.bot, *embeds, timeout=300)
+        
+        paginator.wrong_user_message = "error: you are not the author of this command"
+        paginator.show_select_menu = False
+        paginator.show_callback_button = False
+        
+        await paginator.send(ctx)
         
     @discord.slash_command(
         name="giftcode",
