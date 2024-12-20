@@ -45,10 +45,10 @@ this repo contains an example of the [configuration file](config.example.py) `co
 - [x] ~~add fire crystal amounts from wos-database~~ ([`8d3f4a4`](https://github.com/zenpaiang/wos-bot/commit/8d3f4a47ca7c7657a135ce929901e93ba37b290f))
 - [x] ~~add fire crystal thumbnails from wos-database~~ ([`eefea93`](https://github.com/zenpaiang/wos-bot/commit/eefea93b86c3dc0ed693ad19b4862663ee66ea8c))
 - [x] ~~add paginator for user list~~ ([`f3680b4`](https://github.com/zenpaiang/wos-bot/commit/f3680b4c49929a0c178f771a2829891e071bdd91))
+- [x] ~~add resource amount calculator~~ ([`31f20b6`](https://github.com/zenpaiang/wos-bot/commit/31f20b61fb62d671d1403c3134128ccaa815b152))
 
 ## scrapped ideas / unlikely to do
 
 - [ ] add event-related commands
 - [ ] add an auto-update feature
-- [ ] add resource amount calculator
 - [ ] add fc6 to fc10 data to wos-database and wos-bot
