@@ -84,15 +84,15 @@ class Calculate(discord.Extension):
             except ValueError:
                 return False
         
-        def parse_resource_value(value: str) -> tuple[bool, int]:
+        def parse_resource_value(value: str) -> tuple[bool, float]:
             multipliers = {"k": 1_000, "m": 1_000_000, "b": 1_000_000_000}
             
             if value[-1].lower() in multipliers:
-                return True, int(float(value[:-1]) * multipliers[value[-1].lower()])
+                return True, float(value[:-1]) * multipliers[value[-1].lower()]
             elif floatable(value):
-                return True, int(value)
+                return True, float(value)
             else:
-                return False, 0
+                return False, 0.0
             
         def format_number(num):
             if num >= 1_000_000_000:
