@@ -5,5 +5,5 @@ class Config:
     PLAYERS_FILE = "players.json" # path to players database
     ACTIVITY = discord.Activity(
         name="example activity",
-        type=discord.ActivityType.PLAYING,
+        type=discord.ActivityType.PLAYING
     )
