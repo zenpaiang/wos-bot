@@ -18,6 +18,9 @@ this repo contains an example of the [configuration file](config.example.py) `co
 
 1. `BOT_TOKEN`: your discord bot token
 2. `PLAYERS_FILE`: the path of the players list
+3. `ACTIVITY`: the activity to be displayed on the bot (set to `None` to turn off)
+
+the api reference for activities in the library i use can be found [here](https://interactions-py.github.io/interactions.py/API%20Reference/API%20Reference/models/Discord/activity/).
 
 # commands / features
 
@@ -46,7 +49,7 @@ this repo contains an example of the [configuration file](config.example.py) `co
 - [x] ~~add fire crystal thumbnails from wos-database~~ ([`eefea93`](https://github.com/zenpaiang/wos-bot/commit/eefea93b86c3dc0ed693ad19b4862663ee66ea8c))
 - [x] ~~add paginator for user list~~ ([`f3680b4`](https://github.com/zenpaiang/wos-bot/commit/f3680b4c49929a0c178f771a2829891e071bdd91))
 - [x] ~~add resource amount calculator~~ ([`31f20b6`](https://github.com/zenpaiang/wos-bot/commit/31f20b61fb62d671d1403c3134128ccaa815b152) + [`56e1de0`](https://github.com/zenpaiang/wos-bot/commit/56e1de0f016865d03dd96019f26ccaa16cc48a6b))
-- [ ] add status message support in config
+- [x] add status message support in config ([`46f8a31`](https://github.com/zenpaiang/wos-bot/commit/46f8a3110f40f83edae5986b8d095c8134cba0ae))
 
 ## scrapped ideas / unlikely to do
 
