@@ -323,15 +323,15 @@ class Giftcode(discord.Extension):
             )
         ]
     )
-    async def rename(self, ctx: discord.SlashContext, user: str, new_name: str):
+    async def rename(self, ctx: discord.SlashContext, name: str, new_name: str):
         with open(self.bot.config.PLAYERS_FILE, "r") as f:
             players = json.load(f)
             
         new_name = sanitize_username(new_name)
             
-        name = players[user]
+        name = players[name]
         
-        players[user] = new_name
+        players[name] = new_name
                 
         with open(self.bot.config.PLAYERS_FILE, "w") as f:
             json.dump(players, f, indent=4)
