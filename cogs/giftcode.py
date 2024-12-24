@@ -338,7 +338,7 @@ class Giftcode(discord.Extension):
             
         await ctx.send(f"changed {name}'s name to {new_name}.")
         
-    @rename.autocomplete("user")
+    @rename.autocomplete("name")
     @remove.autocomplete("user")
     async def user_autocomplete(self, ctx: discord.AutocompleteContext):
         name = ctx.input_text
