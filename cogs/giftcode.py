@@ -331,12 +331,12 @@ class Giftcode(discord.Extension):
             
         oldName = players[name]
         
-        players[oldName] = new_name
+        players[name] = new_name
                 
         with open(self.bot.config.PLAYERS_FILE, "w") as f:
             json.dump(players, f, indent=4)
             
-        await ctx.send(f"changed {name}'s name to {new_name}.")
+        await ctx.send(f"changed {oldName}'s name to {new_name}.")
         
     @rename.autocomplete("name")
     @remove.autocomplete("user")
