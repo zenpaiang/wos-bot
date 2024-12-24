@@ -48,7 +48,7 @@ the api reference for activities in the library i use can be found [here](https:
 - [x] ~~add fire crystal amounts from wos-database~~ ([`8d3f4a4`](https://github.com/zenpaiang/wos-bot/commit/8d3f4a47ca7c7657a135ce929901e93ba37b290f))
 - [x] ~~add fire crystal thumbnails from wos-database~~ ([`eefea93`](https://github.com/zenpaiang/wos-bot/commit/eefea93b86c3dc0ed693ad19b4862663ee66ea8c))
 - [x] ~~add paginator for user list~~ ([`f3680b4`](https://github.com/zenpaiang/wos-bot/commit/f3680b4c49929a0c178f771a2829891e071bdd91))
-- [x] ~~add resource amount calculator~~ ([`31f20b6`](https://github.com/zenpaiang/wos-bot/commit/31f20b61fb62d671d1403c3134128ccaa815b152) + [`56e1de0`](https://github.com/zenpaiang/wos-bot/commit/56e1de0f016865d03dd96019f26ccaa16cc48a6b))
+- [x] ~~add resource amount calculator~~ ([`31f20b6`](https://github.com/zenpaiang/wos-bot/commit/31f20b61fb62d671d1403c3134128ccaa815b152) + [`56e1de0`](https://github.com/zenpaiang/wos-bot/commit/56e1de0f016865d03dd96019f26ccaa16cc48a6b) + [`73798a6`](https://github.com/zenpaiang/wos-bot/commit/73798a6258f3cbe197c5eadccf63f16e8d1179ab))
 - [x] ~~add status message support in config~~ ([`46f8a31`](https://github.com/zenpaiang/wos-bot/commit/46f8a3110f40f83edae5986b8d095c8134cba0ae))
 
 ## scrapped ideas / unlikely to do
