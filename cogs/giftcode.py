@@ -329,9 +329,9 @@ class Giftcode(discord.Extension):
             
         new_name = sanitize_username(new_name)
             
-        name = players[name]
+        oldName = players[name]
         
-        players[name] = new_name
+        players[oldName] = new_name
                 
         with open(self.bot.config.PLAYERS_FILE, "w") as f:
             json.dump(players, f, indent=4)
