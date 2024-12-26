@@ -47,7 +47,7 @@ class Calculate(discord.Extension):
         await ctx.send(msg)
         
     @calculate_cmd.subcommand(
-        sub_cmd_name="resources",
+        sub_cmd_name="gathering",
         sub_cmd_description="calculate how to distribute queues",
         options=[
             discord.SlashCommandOption(type=discord.OptionType.STRING, name="meat", description="amount of meat you have", required=True),
