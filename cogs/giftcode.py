@@ -175,11 +175,11 @@ class Giftcode(discord.Extension):
     )
     async def redeem(self, ctx: discord.SlashContext, code: str):
         if self.redeemLimits["inUse"]:
-            await ctx.send("error: there can only be one instance of this command running at once.")
+            await ctx.send("error: there can only be one instance of this command running at once")
             return
         
         if self.redeemLimits["lastUse"] + 60 > time.time():
-            await ctx.send("error: this command has a limit of 1 use every 1 minute to comply with WOS's rate limits.")
+            await ctx.send("error: this command has a limit of 1 use every 1 minute to comply with WOS's rate limits")
             return
         
         with open(self.bot.config.PLAYERS_FILE, "r") as f:
@@ -250,7 +250,7 @@ class Giftcode(discord.Extension):
             )
         ]
     )
-    async def add(self, ctx: discord.SlashContext, name: str, id: str):    
+    async def add(self, ctx: discord.SlashContext, name: str, id: str):
         if intable(id):
             name = sanitize_username(name)
             
@@ -258,7 +258,7 @@ class Giftcode(discord.Extension):
                 players = json.load(f)
                 
             if id in players:
-                await ctx.send("error: user already exists in the list")
+                await ctx.send("error: user id already exists in the database")
                 return
                 
             players[id] = name
@@ -266,7 +266,7 @@ class Giftcode(discord.Extension):
             with open(self.bot.config.PLAYERS_FILE, "w") as f:
                 json.dump(players, f, indent=4)
                 
-            await ctx.send(f"added user {name} to the list.")
+            await ctx.send(f"added user {name} to the database")
         else:
             await ctx.send("error: invalid user id")
             
@@ -279,26 +279,27 @@ class Giftcode(discord.Extension):
         sub_cmd_description="remove a user from the database",
         options=[
             discord.SlashCommandOption(
-                name="user",
+                name="name",
                 description="the user's name",
                 required=True,
                 type=discord.OptionType.STRING,
-                autocomplete=True
+                autocomplete=True,
+                argument_name="id"
             )
         ]
     )
-    async def remove(self, ctx: discord.SlashContext, user: str):
+    async def remove(self, ctx: discord.SlashContext, id: str):
         with open(self.bot.config.PLAYERS_FILE, "r") as f:
             players = json.load(f)
             
-        name = players[user]
+        name = players[id]
         
-        del players[user]
+        del players[id]
                 
         with open(self.bot.config.PLAYERS_FILE, "w") as f:
             json.dump(players, f, indent=4)
             
-        await ctx.send(f"removed user {name} from the list.")
+        await ctx.send(f"removed user {name} from the database")
     
     @discord.slash_command(
         name="giftcode",
@@ -313,6 +314,7 @@ class Giftcode(discord.Extension):
                 description="the user's name",
                 required=True,
                 type=discord.OptionType.STRING,
+                argument_name="id",
                 autocomplete=True
             ),
             discord.SlashCommandOption(
@@ -323,23 +325,23 @@ class Giftcode(discord.Extension):
             )
         ]
     )
-    async def rename(self, ctx: discord.SlashContext, name: str, new_name: str):
+    async def rename(self, ctx: discord.SlashContext, id: str, new_name: str):
         with open(self.bot.config.PLAYERS_FILE, "r") as f:
             players = json.load(f)
             
         new_name = sanitize_username(new_name)
             
-        oldName = players[name]
+        old_name = players[id]
         
-        players[name] = new_name
+        players[id] = new_name
                 
         with open(self.bot.config.PLAYERS_FILE, "w") as f:
             json.dump(players, f, indent=4)
             
-        await ctx.send(f"changed {oldName}'s name to {new_name}.")
+        await ctx.send(f"changed {old_name}'s name to {new_name}")
         
     @rename.autocomplete("name")
-    @remove.autocomplete("user")
+    @remove.autocomplete("name")
     async def user_autocomplete(self, ctx: discord.AutocompleteContext):
         name = ctx.input_text
         
