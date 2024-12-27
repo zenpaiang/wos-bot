@@ -51,6 +51,7 @@ the api reference for activities in the library i use can be found [here](https:
 - [x] ~~add resource amount calculator~~ ([`31f20b6`](https://github.com/zenpaiang/wos-bot/commit/31f20b61fb62d671d1403c3134128ccaa815b152) + [`56e1de0`](https://github.com/zenpaiang/wos-bot/commit/56e1de0f016865d03dd96019f26ccaa16cc48a6b) + [`73798a6`](https://github.com/zenpaiang/wos-bot/commit/73798a6258f3cbe197c5eadccf63f16e8d1179ab))
 - [x] ~~add status message support in config~~ ([`46f8a31`](https://github.com/zenpaiang/wos-bot/commit/46f8a3110f40f83edae5986b8d095c8134cba0ae))
 - [ ] add support for linking discord users to a whiteout survival user
+- [ ] add support for fetching a user's furnace level + profile picture
 
 ## scrapped ideas / unlikely to do
 
