@@ -26,20 +26,26 @@ the api reference for activities in the library i use can be found [here](https:
 
 ## gift code redemption (`giftcode`)
 
-1. `users list`: list all the users
-2. `users add`: add a user to the redemption list
-3. `users remove`: remove a user from the redemption list
-4. `users rename`: rename a user in the redemption list 
+1. `redeem`: redeem a giftcode to everyone in the database
+2. `users list`: list all the users
+3. `users add`: add a user to the database
+4. `users remove`: remove a user from the database
+5. `users rename`: rename a user in the database
 
 ## calculation (`calculate`)
 
 1. `time`: calculate the amount of time reduced after construction buffs
+2. `gathering`: calculate how to distribute your gathering queues to equalize your resources
 
 ## database (`database`)
 
 1. `chief_gear`: get information about a rarity of chief gear or the amount of resources needed to upgrade to that rarity
 2. `chief_charm`: get information about a rarity of chief charm or the amount of resources needed to upgrade to that rarity
 3. `fire_crystals`: get amount of fire crystals needed to upgrade buildings
+
+## user (`user`)
+
+1. `info`: get profile picture and furnace level for a user
 
 # task list / future features
 
