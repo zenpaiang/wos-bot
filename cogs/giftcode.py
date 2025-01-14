@@ -185,7 +185,7 @@ class Giftcode(discord.Extension):
         with open(self.bot.config.PLAYERS_FILE, "r") as f:
             playersObj = json.load(f)
             
-        players = [{"id": key, "name": playersObj[key]} for key in playersObj]
+        players = [{"id": key, "name": playersObj[key]["name"]} for key in playersObj]
         
         session = aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=ssl.create_default_context(cafile=certifi.where())))
         
@@ -207,10 +207,35 @@ class Giftcode(discord.Extension):
     async def list_users(self, ctx: discord.SlashContext):
         with open(self.bot.config.PLAYERS_FILE, "r") as f:
             players = json.load(f)
-            
-        players_list = [f"**{player_name}**" for _, player_name in players.items()]
         
-        embeds_content = ["\n".join(players_list[i:i + 10]) for i in range(0, len(players_list), 10)]
+        rank_lists = {1: [], 2: [], 3: [], 4: [], 5: []}
+        
+        if any([x["rank"] == 0 for x in players.values()]):
+            await ctx.send("error: some users have not been assigned a rank (post migration)", ephemeral=True)
+            return
+
+        for details in players.values():
+            rank_lists[details["rank"]].append(details["name"])
+        
+        sorted_ranks = [rank_lists[rank] for rank in range(5, 0, -1)]
+        ranks = range(1, 6)
+        
+        rank_lines = [[] for _ in range(5)]
+        
+        embeds_content = []
+        
+        for index, rank in enumerate(sorted_ranks):
+            rank_lines[index].append(f"**R{ranks[-(index + 1)]}**")
+            rank_lines[index].append("")
+            
+            for player in rank:
+                rank_lines[index].append(f"**{player}**")
+                
+            rank_lines[index].extend(["" for _ in range(10 - (len(rank_lines[index]) % 10))])
+
+        lines = sum(rank_lines, [])
+        
+        embeds_content = ["\n".join(lines[i:i + 10]) for i in range(0, len(lines), 10)]
         
         embeds = [
             discord.Embed(
@@ -247,10 +272,22 @@ class Giftcode(discord.Extension):
                 description="the user's id",
                 required=True,
                 type=discord.OptionType.STRING
+            ),
+            discord.SlashCommandOption(
+                name="rank",
+                description="the user's rank",
+                required=True,
+                type=discord.OptionType.INTEGER,
+                choices=[
+                    discord.SlashCommandChoice(
+                        name=f"R{x + 1}",
+                        value=x + 1
+                    ) for x in range(5)
+                ]
             )
         ]
     )
-    async def add(self, ctx: discord.SlashContext, name: str, id: str):
+    async def add(self, ctx: discord.SlashContext, name: str, id: str, rank: int):
         if intable(id):
             name = sanitize_username(name)
             
@@ -258,17 +295,20 @@ class Giftcode(discord.Extension):
                 players = json.load(f)
                 
             if id in players:
-                await ctx.send("error: user id already exists in the database")
+                await ctx.send("error: user id already exists in the database", ephemeral=True)
                 return
                 
-            players[id] = name
+            players[id] = {
+                "name": name,
+                "rank": rank
+            }
             
             with open(self.bot.config.PLAYERS_FILE, "w") as f:
                 json.dump(players, f, indent=4)
                 
-            await ctx.send(f"added user {name} to the database")
+            await ctx.send(f"added user {name} to the database", ephemeral=True)
         else:
-            await ctx.send("error: invalid user id")
+            await ctx.send("error: invalid user id", ephemeral=True)
             
     @discord.slash_command(
         name="giftcode",
@@ -292,14 +332,14 @@ class Giftcode(discord.Extension):
         with open(self.bot.config.PLAYERS_FILE, "r") as f:
             players = json.load(f)
             
-        name = players[id]
+        name = players[id]["name"]
         
         del players[id]
                 
         with open(self.bot.config.PLAYERS_FILE, "w") as f:
             json.dump(players, f, indent=4)
             
-        await ctx.send(f"removed user {name} from the database")
+        await ctx.send(f"removed user {name} from the database", ephemeral=True)
     
     @discord.slash_command(
         name="giftcode",
@@ -331,15 +371,57 @@ class Giftcode(discord.Extension):
             
         new_name = sanitize_username(new_name)
             
-        old_name = players[id]
+        old_name = players[id]["name"]
         
-        players[id] = new_name
+        players[id]["name"] = new_name
                 
         with open(self.bot.config.PLAYERS_FILE, "w") as f:
             json.dump(players, f, indent=4)
             
-        await ctx.send(f"changed {old_name}'s name to {new_name}")
+        await ctx.send(f"changed {old_name}'s name to {new_name}", ephemeral=True)
         
+    @discord.slash_command(
+        name="giftcode",
+        description="giftcode-related commands",
+        group_name="users",
+        group_description="user-related commands",
+        sub_cmd_name="set_rank",
+        sub_cmd_description="set a user's rank in the database",
+        options=[
+            discord.SlashCommandOption(
+                name="name",
+                description="the user's name",
+                required=True,
+                type=discord.OptionType.STRING,
+                argument_name="id",
+                autocomplete=True
+            ),
+            discord.SlashCommandOption(
+                name="rank",
+                description="the user's rank",
+                required=True,
+                type=discord.OptionType.INTEGER,
+                choices=[
+                    discord.SlashCommandChoice(
+                        name=f"R{x + 1}",
+                        value=x + 1
+                    ) for x in range(5)
+                ]
+            )
+        ]
+    )
+    async def set_rank(self, ctx: discord.SlashContext, id: str, rank: int):
+        with open(self.bot.config.PLAYERS_FILE, "r") as f:
+            players = json.load(f)
+        
+        players[id]["rank"] = rank
+                
+        with open(self.bot.config.PLAYERS_FILE, "w") as f:
+            json.dump(players, f, indent=4)
+            
+        await ctx.send(f"successfully set {players[id]['name']}'s rank to R{rank}", ephemeral=True)
+    
+    @set_rank.autocomplete("name")
     @rename.autocomplete("name")
     @remove.autocomplete("name")
     async def user_autocomplete(self, ctx: discord.AutocompleteContext):
@@ -350,7 +432,7 @@ class Giftcode(discord.Extension):
             
         name = sanitize_username(name)
             
-        results = [(player_id, player_name, match_score(name, player_name)) for player_id, player_name in players.items()]
+        results = [(player_id, player_data["name"], match_score(name, player_data["name"])) for player_id, player_data in players.items()]
             
         results.sort(reverse=True, key=lambda x: x[2])
         
