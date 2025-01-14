@@ -151,7 +151,7 @@ class Calculate(discord.Extension):
             
             target_importance = max(importance.values())
             
-            classified_importance = {resource: importance[resource] if (target_importance - importance[resource]) < (0.3 * target_importance) else (target_importance / 2) for resource in resources}
+            classified_importance = {resource: importance[resource] if (target_importance - importance[resource]) < (0.3 * target_importance) else (target_importance / 1.3) for resource in resources}
             gatherings = {resource: classified_importance[resource] / sum(classified_importance.values()) * queues for resource in resources}
             rounded_gatherings = {resource: int(gatherings[resource]) for resource in gatherings}
             
