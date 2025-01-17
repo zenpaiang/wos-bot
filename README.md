@@ -22,6 +22,15 @@ this repo contains an example of the [configuration file](config.example.py) `co
 
 the api reference for activities in the library i use can be found [here](https://interactions-py.github.io/interactions.py/API%20Reference/API%20Reference/models/Discord/activity/).
 
+# updating the bot
+
+when updating the bot, all you need to do is  
+  
+1. cd into the repo folder `cd wos-bot`
+2. fetch the latest update `git pull`
+
+migration to new formats of the config/database will be done automatically, as with the current `players.json` version 2.
+
 # commands / features
 
 ## gift code redemption (`giftcode`)
@@ -31,6 +40,7 @@ the api reference for activities in the library i use can be found [here](https:
 3. `users add`: add a user to the database
 4. `users remove`: remove a user from the database
 5. `users rename`: rename a user in the database
+6. `autorename`: automatically rename all users in the database to their latest usernames
 
 ## calculation (`calculate`)
 
