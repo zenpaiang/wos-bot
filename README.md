@@ -58,7 +58,7 @@ the api reference for activities in the library i use can be found [here](https:
 - [x] ~~add status message support in config~~ ([`46f8a31`](https://github.com/zenpaiang/wos-bot/commit/46f8a3110f40f83edae5986b8d095c8134cba0ae))
 - [x] ~~add support for fetching a user's furnace level + profile picture~~ ([`0514ef4`](https://github.com/zenpaiang/wos-bot/commit/0514ef429fb4678e0d4f8a924ec693e99b3ef150))
 - [x] ~~add rank support when adding players~~ ([`074705c`](https://github.com/zenpaiang/wos-bot/commit/074705c90be0b0f8587bcb622d0b6264ce3adc67))
-- [ ] add auto rename system during giftcode redemption
+- [x] ~~add auto rename system during giftcode redemption~~ ([`12f00c7`](https://github.com/zenpaiang/wos-bot/commit/12f00c76864a1d620527f58e914c12ffb81250d2))
 
 ## scrapped ideas / unlikely to do
 
