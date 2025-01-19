@@ -48,8 +48,8 @@ class Giftcode(discord.Extension):
     def __init__(self, bot: discord.Client):
         self.apiLimits = {"inUse": False, "lastUse": 0}
         self.bot = bot
-    
-    async def redeem_code(self, session: aiohttp.ClientSession, code: str, player: dict) -> tuple[bool, str, str]:
+        
+    async def login_user(self, session: aiohttp.ClientSession, player: dict) -> tuple[bool, str, dict]: # exit, counter, message, player
         timens = time.time_ns()
         
         login_resp = await session.post(
@@ -69,13 +69,21 @@ class Giftcode(discord.Extension):
         try:
             login_result = await login_resp.json()
         except Exception as _:
-            return False, "error", "login error"
+            return False, "error", "login error", None
         
         if "msg" in login_result:
             if login_result["msg"] != "success":
-                return False, "error", "login error"
+                return False, "error", "login error", None
+            else:
+                return False, "success", "success", login_result
         else:
-            return True, None, "rate limited"
+            return True, None, "rate limited", None
+    
+    async def redeem_code(self, session: aiohttp.ClientSession, code: str, player: dict) -> tuple[bool, str, str]:
+        exit, counter, message, _ = await self.login_user(session, player)
+        
+        if exit:
+            return exit, counter, message
         
         timens = time.time_ns()
         
@@ -159,95 +167,59 @@ class Giftcode(discord.Extension):
             recursive_depth=recursive_depth + 1,
         )
         
-    async def rename_player(self, session: aiohttp.ClientSession, player: dict) -> tuple[bool, str, str]:
-        timens = time.time_ns()
-        
-        login_resp = await session.post(
-            url="https://wos-giftcode-api.centurygame.com/api/player",
-            data={
-                "fid": player["id"],
-                "time": timens,
-                "sign": hashlib.md5(f"fid={player['id']}&time={timens}tB87#kPtkxqOS2".encode("utf-8")).hexdigest()
-            },
-            headers={
-                "Content-Type": "application/x-www-form-urlencoded",
-                "Accept": "application/json",
-            },
-            timeout=30
-        )
-        
-        try:
-            login_result = await login_resp.json()
-        except Exception as _:
-            return False, "error", "login error"
-        
-        if "msg" in login_result:
-            if login_result["msg"] != "success":
-                return False, "error", "login error"
-            else:
-                if sanitize_username(login_result["data"]["nickname"]) != player["name"]:
-                    with open(self.bot.config.PLAYERS_FILE, "r") as f:
-                        players = json.load(f)
-                        
-                    players[player["id"]]["name"] = sanitize_username(login_result["data"]["nickname"])
-                    
-                    print(f"renamed {player['name']} to {login_result['data']['nickname']}")
-                    
-                    with open(self.bot.config.PLAYERS_FILE, "w") as f:
-                        json.dump(players, f, indent=4)
-                        
-                    return False, "renamed", "none"
-                else:
-                    return False, "success", "none"
-        else:
-            return True, None, "rate limited"
-        
-    async def recursive_rename(self, message: discord.Message, session: aiohttp.ClientSession, players: list, counters: dict = {"renamed": 0, "success": 0, "error": 0}, recursive_depth: int = 0):
+    async def recursive_rename(self, message: discord.Message, session: aiohttp.ClientSession, players: list, counters: dict = {"no_action": 0, "renamed": 0, "error": 0}, recursive_depth: int = 0):
         results = {}
         
         for i in range(0, len(players), 20):
             batch = players[i:i + 20]
             
-            msg = "renaming users" if recursive_depth == 0 else f"renaming users (retry {recursive_depth})"
+            msg = "renaming players" if recursive_depth == 0 else f"renaming players (retry {recursive_depth})"
             
             await message.edit(content=f"{msg}... ({min(i, len(players))}/{len(players)}) | next update <t:{1 + int(time.time()) + (len(batch) * 3)}:R>")
             
             for player in batch:
                 start = time.time()
                 
-                exit, counter, result = await self.rename_player(session, player)
+                exit, _, result, data = await self.login_user(session, player)
                 
                 if exit:
                     await message.edit(content=f"error: {result}")
                     return
                 else:
-                    counters[counter] += 1
                     results[player["name"]] = result
+                    
+                    if result == "success":
+                        if sanitize_username(data["data"]["nickname"]) != player["name"]:
+                            with open(self.bot.config.PLAYERS_FILE, "r") as f:
+                                playersObj = json.load(f)
+                            
+                            playersObj[player["id"]]["name"] = sanitize_username(data["data"]["nickname"])
+                            
+                            with open(self.bot.config.PLAYERS_FILE, "w") as f:
+                                json.dump(playersObj, f, indent=4)
+                            
+                            counters["renamed"] += 1
+                        else:
+                            counters["no_action"] += 1
                     
                 await asyncio.sleep(max(0, 3 - (time.time() - start)))
                     
         remaining_players = [player for player in players if "error" in results[player["name"]]]
         
-        if len(remaining_players) == 0:
-            msg = (
-                f"report: rename users\n"
-                f"renamed: {counters['renamed']} | "
-                f"nothing: {counters['success']} | "
-                f"retries: {recursive_depth}\n\n"
-                f"made with ❤️ by zenpai :D"
-            )
-            
+        if len(remaining_players) == 0:         
+            msg = f"successfully renamed {counters['renamed']} user{'' if counters['renamed'] == 1 else ''}" if counters["renamed"] > 0 else "no players were renamed"
+               
             await message.edit(content=msg)
             
             await session.close()
             return
-                    
-        await self.recursive_redeem(
+        
+        await self.recursive_rename(
             message=message,
             session=session,
             players=remaining_players,
             counters=counters,
-            recursive_depth=recursive_depth + 1,
+            recursive_depth=recursive_depth + 1
         )
         
     @discord.slash_command(
