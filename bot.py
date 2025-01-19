@@ -2,7 +2,7 @@ import interactions as discord
 import config
 import json
 
-client = discord.Client(intents=discord.Intents.GUILDS)
+client = discord.Client(intents=discord.Intents.GUILD_MEMBERS | discord.Intents.GUILDS)
 
 client.config = config.Config()
 
