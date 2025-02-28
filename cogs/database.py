@@ -281,7 +281,7 @@ class Database(discord.Extension):
                     discord.SlashCommandChoice(
                         name=f"FC{i + 1}",
                         value=i + 1
-                    ) for i in range(5)
+                    ) for i in range(10)
                 ]
             )
         ]
@@ -289,15 +289,28 @@ class Database(discord.Extension):
     async def fire_crystals(self, ctx: discord.SlashContext, level: int):    
         embed_content = ""
         
-        total = 0
+        totalfc = 0
+        totalrfc = 0
         
-        for building in self.databaseFireCrystals[f"FC{level}"]:
+        for building in self.databaseFireCrystals[f"fc{level}"]:
             building_name = building.replace("_", " ").title()
-            embed_content += f"**{building_name}:** {self.databaseFireCrystals[f'FC{level}'][building]} <:fire_crystal:1318532416188710942>\n"
-            total += self.databaseFireCrystals[f'FC{level}'][building]
+            fc_value = self.databaseFireCrystals[f"fc{level}"][building]["fc"]
+            rfc_value = self.databaseFireCrystals[f"fc{level}"][building]["rfc"]
+            
+            embed_content += f"**{building_name}:** {fc_value} <:fire_crystal:1318532416188710942>"
+            
+            if rfc_value > 0:
+                embed_content += f" {rfc_value} <:refined_fire_crystal:1344884084429688934>"
+                
+            embed_content += "\n"
+            
+            totalfc += fc_value
+            totalrfc += rfc_value
         
-        embed_content += f"\n**Total:** {total} <:fire_crystal:1318532416188710942>"
-        embed_content += f"\n**Total x 5:** {total * 5} <:fire_crystal:1318532416188710942>"
+        embed_content += f"\n**Total:** {totalfc} <:fire_crystal:1318532416188710942>"
+        
+        if totalrfc > 0:
+            embed_content += f" {totalrfc} <:refined_fire_crystal:1344884084429688934>"
         
         embed = discord.Embed(
             title=f"FC{level} Buildings",
