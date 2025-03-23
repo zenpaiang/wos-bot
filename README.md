@@ -72,6 +72,8 @@ migration to new formats of the config/database will be done automatically, as w
 - [x] ~~add fc6 to fc10 data to wos-database and wos-bot~~ ([`8d10546`](https://github.com/zenpaiang/wos-bot/commit/8d1054697f5c2c7f98abb56371e3081bf04734e8))
 - [ ] stop bot from exiting upon hitting rate limit
 - [ ] add handling for `40005` status code
+- [ ] fix counter issue
+- [ ] dockerize application ([#1](https://github.com/zenpaiang/wos-bot/issues/1))
 
 ## scrapped ideas / unlikely to do
 
