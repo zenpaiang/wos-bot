@@ -139,7 +139,9 @@ class Giftcode(discord.Extension):
                 exit, counter, result = await self.redeem_code(session, code, player)
                 
                 if exit:
-                    await message.edit(content=f"error: {result}")       
+                    await message.edit(content=f"error: {result}")
+                    await session.close()      
+                     
                     return
                 else:
                     counters[counter] += 1
