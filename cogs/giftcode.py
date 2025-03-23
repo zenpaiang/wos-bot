@@ -111,6 +111,8 @@ class Giftcode(discord.Extension):
             return True, None, "gift code does not exist"
         elif redeem_result["err_code"] == 40007:
             return True, None, "gift code has expired"
+        elif redeem_result["err_code"] == 40005:
+            return True, None, "gift code has been fully claimed"
         elif redeem_result["err_code"] == 40008:
             return False, "already_claimed", "already claimed"
         elif redeem_result["err_code"] == 20000:
