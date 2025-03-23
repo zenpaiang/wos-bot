@@ -77,7 +77,7 @@ class Giftcode(discord.Extension):
             else:
                 return False, "success", "success", login_result
         else:
-            return True, None, "rate limited", None
+            return False, "error", "rate limited", None
     
     async def redeem_code(self, session: aiohttp.ClientSession, code: str, player: dict) -> tuple[bool, str, str]:
         exit, counter, message, _ = await self.login_user(session, player)
@@ -118,7 +118,10 @@ class Giftcode(discord.Extension):
         else:
             return False, "error", "unknown error"
     
-    async def recursive_redeem(self, message: discord.Message, session: aiohttp.ClientSession, code: str, players: list, counters: dict = {"already_claimed": 0, "successfully_claimed": 0, "error": 0}, recursive_depth: int = 0): # success, counters, result            
+    async def recursive_redeem(self, message: discord.Message, session: aiohttp.ClientSession, code: str, players: list, counters: dict | None = None, recursive_depth: int = 0): # success, counters, result            
+        if counters is None:
+            counters = {"already_claimed": 0, "successfully_claimed": 0, "error": 0}
+        
         results = {}
         
         for i in range(0, len(players), 20):
@@ -134,7 +137,7 @@ class Giftcode(discord.Extension):
                 exit, counter, result = await self.redeem_code(session, code, player)
                 
                 if exit:
-                    await message.edit(content=f"error: {result}")
+                    await message.edit(content=f"error: {result}")       
                     return
                 else:
                     counters[counter] += 1
