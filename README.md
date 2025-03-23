@@ -70,8 +70,8 @@ migration to new formats of the config/database will be done automatically, as w
 - [x] ~~add rank support when adding players~~ ([`074705c`](https://github.com/zenpaiang/wos-bot/commit/074705c90be0b0f8587bcb622d0b6264ce3adc67))
 - [x] ~~add auto rename system during giftcode redemption~~ ([`12f00c7`](https://github.com/zenpaiang/wos-bot/commit/12f00c76864a1d620527f58e914c12ffb81250d2))
 - [x] ~~add fc6 to fc10 data to wos-database and wos-bot~~ ([`8d10546`](https://github.com/zenpaiang/wos-bot/commit/8d1054697f5c2c7f98abb56371e3081bf04734e8))
-- [ ] stop bot from exiting upon hitting rate limit
-- [ ] add handling for `40005` status code
+- [x] ~~stop bot from exiting upon hitting rate limit~~ ([`e08c11b`](https://github.com/zenpaiang/wos-bot/commit/e08c11b98da9e6b644d175b188963cc48bfa3e8f))
+- [x] ~~add handling for `40005` status code~~ ([`bc84f80`](https://github.com/zenpaiang/wos-bot/commit/bc84f80b45ad150ca3efd350a8bd73016cbc1452))
 - [ ] fix counter issue
 - [ ] dockerize application ([#1](https://github.com/zenpaiang/wos-bot/issues/1))
 
