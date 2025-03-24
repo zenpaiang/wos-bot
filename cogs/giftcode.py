@@ -1,5 +1,5 @@
 from interactions.ext.paginators import Paginator
-from difflib import SequenceMatcher
+from funcs import match_score, intable
 import interactions as discord
 import hashlib
 import aiohttp
@@ -12,37 +12,6 @@ import re
 
 def sanitize_username(name: str) -> str:    
     return re.sub(r"^\[[A-Za-z0-9]{3}\]", "", name.replace("\u00a0", " ")).strip()
-
-def intable(s: str) -> bool:
-    try:
-        int(s)
-        return True
-    except ValueError:
-        return False
-    
-def match_score(item: str, against: str) -> float:    
-    matcher = SequenceMatcher(None)
-    
-    score = 0
-    
-    matcher.set_seqs(item, against)
-    
-    if " " in item:
-        wordScore = 0
-        
-        words = item.split(" ")
-        
-        againstLower = against.lower()
-        
-        for word in words:
-            if word.lower() in againstLower:
-                wordScore += 1
-                
-        score += wordScore / len(words) * 0.6
-        
-    score += matcher.ratio() * 0.4
-        
-    return score
 
 class Giftcode(discord.Extension):
     def __init__(self, bot: discord.Client):

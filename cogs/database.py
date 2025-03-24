@@ -1,32 +1,6 @@
-from difflib import SequenceMatcher
 import interactions as discord
+from funcs import match_score
 import json
-
-# utility classes
-
-def match_score(item: str, against: str) -> float:    
-    matcher = SequenceMatcher(None)
-    
-    score = 0
-    
-    matcher.set_seqs(item, against)
-    
-    if " " in item:
-        wordScore = 0
-        
-        words = item.split(" ")
-        
-        againstLower = against.lower()
-        
-        for word in words:
-            if word.lower() in againstLower:
-                wordScore += 1
-                
-        score += wordScore / len(words) * 0.6
-        
-    score += matcher.ratio() * 0.4
-        
-    return score
 
 class Database(discord.Extension):
     def __init__(self, bot: discord.Client):
