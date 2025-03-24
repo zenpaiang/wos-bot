@@ -73,10 +73,10 @@ migration to new formats of the config/database will be done automatically, as w
 - [x] ~~stop bot from exiting upon hitting rate limit~~ ([`e08c11b`](https://github.com/zenpaiang/wos-bot/commit/e08c11b98da9e6b644d175b188963cc48bfa3e8f))
 - [x] ~~add handling for `40005` status code~~ ([`bc84f80`](https://github.com/zenpaiang/wos-bot/commit/bc84f80b45ad150ca3efd350a8bd73016cbc1452))
 - [ ] fix counter issue
-- [ ] dockerize application ([#1](https://github.com/zenpaiang/wos-bot/issues/1))
 
 ## scrapped ideas / unlikely to do
 
+- [ ] dockerize application ([#1](https://github.com/zenpaiang/wos-bot/issues/1))
 - [ ] add event-related commands
 - [ ] add an auto-update feature
 - [ ] add support for linking discord users to a whiteout survival user
