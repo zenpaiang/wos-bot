@@ -330,12 +330,6 @@ class Giftcode(discord.Extension):
         sub_cmd_description="add a user to the database",
         options=[
             discord.SlashCommandOption(
-                name="name",
-                description="the user's name",
-                required=True,
-                type=discord.OptionType.STRING
-            ),
-            discord.SlashCommandOption(
                 name="id",
                 description="the user's id",
                 required=True,
@@ -355,26 +349,35 @@ class Giftcode(discord.Extension):
             )
         ]
     )
-    async def add(self, ctx: discord.SlashContext, name: str, id: str, rank: int):
-        if intable(id):
-            name = sanitize_username(name)
-            
+    async def add(self, ctx: discord.SlashContext, id: str, rank: int):
+        if intable(id):    
             with open(self.bot.config.PLAYERS_FILE, "r") as f:
                 players = json.load(f)
                 
             if id in players:
                 await ctx.send("error: user id already exists in the database", ephemeral=True)
                 return
-                
-            players[id] = {
-                "name": name,
-                "rank": rank
-            }
             
-            with open(self.bot.config.PLAYERS_FILE, "w") as f:
-                json.dump(players, f, indent=4)
+            await ctx.defer(ephemeral=True)
+            
+            session = aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=ssl.create_default_context(cafile=certifi.where())))
+            
+            err, _, _, user_data = await self.login_user(session, {"id": id})
+            
+            if not err:
+                name = sanitize_username(user_data["data"]["nickname"])
                 
-            await ctx.send(f"added user {name} to the database", ephemeral=True)
+                players[id] = {
+                    "name": name,
+                    "rank": rank
+                }
+                
+                with open(self.bot.config.PLAYERS_FILE, "w") as f:
+                    json.dump(players, f, indent=4)
+                    
+                await ctx.send(f"added user {name} to the database", ephemeral=True)
+            else:
+                await ctx.send("error: api returned bad data", ephemeral=True)
         else:
             await ctx.send("error: invalid user id", ephemeral=True)
             
