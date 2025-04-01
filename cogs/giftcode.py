@@ -18,7 +18,7 @@ class Giftcode(discord.Extension):
         self.apiLimits = {"inUse": False, "lastUse": 0}
         self.bot = bot
         
-    async def login_user(self, session: aiohttp.ClientSession, player: dict) -> tuple[bool, str, dict]: # exit, counter, message, player
+    async def login_user(self, session: aiohttp.ClientSession, player: dict) -> tuple[bool, str, str, dict]: # exit, counter, message, player
         timens = time.time_ns()
         
         login_resp = await session.post(
