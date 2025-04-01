@@ -72,7 +72,7 @@ migration to new formats of the config/database will be done automatically, as w
 - [x] ~~add fc6 to fc10 data to wos-database and wos-bot~~ ([`8d10546`](https://github.com/zenpaiang/wos-bot/commit/8d1054697f5c2c7f98abb56371e3081bf04734e8))
 - [x] ~~stop bot from exiting upon hitting rate limit~~ ([`e08c11b`](https://github.com/zenpaiang/wos-bot/commit/e08c11b98da9e6b644d175b188963cc48bfa3e8f))
 - [x] ~~add handling for `40005` status code~~ ([`bc84f80`](https://github.com/zenpaiang/wos-bot/commit/bc84f80b45ad150ca3efd350a8bd73016cbc1452))
-- [ ] fix counter issue
+- [x] fix counter issue ([`e08c11b`](https://github.com/zenpaiang/wos-bot/commit/e08c11b98da9e6b644d175b188963cc48bfa3e8f))
 
 ## scrapped ideas / unlikely to do
 
