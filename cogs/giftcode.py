@@ -33,7 +33,7 @@ class Giftcode(discord.Extension):
             for player in batch:
                 start = time.time()
                 
-                exit, counter, result = await self.api.redeem_code(player["id"], code)
+                exit, counter, result = await self.api.redeem_code(player, code)
                 
                 if exit:
                     await ctx.message.edit(f"error: {result}")
