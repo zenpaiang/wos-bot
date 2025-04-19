@@ -21,9 +21,7 @@ class API:
             )
         )
         
-    async def login_user(self, id: str) -> tuple[bool, str, str, dict | None]:
-        self.inUse = True
-        
+    async def login_user(self, id: str) -> tuple[bool, str, str, dict | None]:        
         now = time.time_ns()
         
         resp = await self.session.post(
@@ -36,9 +34,7 @@ class API:
             headers=self.headers,
             timeout=30
         )
-        
-        self.lastUsed = time.time()
-        
+
         try:
             result = await resp.json()
         except Exception as _:
