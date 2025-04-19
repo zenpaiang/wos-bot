@@ -8,11 +8,11 @@ a whiteout survival giftcode redeemer + utility bot
 # upcoming features
 
 - [ ] auto renaming of users during giftcode redemption
-- [ ] link discord users to wos users
+- [x] link discord users to wos users ([`8af2869`](https://github.com/zenpaiang/wos-bot/commit/8af2869a326c9c962ca7f32ec42e5fabaac6ed82))
 - [ ] username sync between wos and discord users
 - [ ] optional permission system
 - [ ] better user list with search functionality
-- [ ] automatic fetching + caching of [wos-database](https://github.com/zenpaiang/wos-datbase) content
+- [ ] automatic fetching + caching of [wos-database](https://github.com/zenpaiang/wos-database) content
 
 # currently working features
 
