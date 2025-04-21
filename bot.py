@@ -1,17 +1,7 @@
-import interactions as discord
-import json
-import cfg
+from lib.client import CustomClient
+from interactions import Intents
 
-class CustomClient(discord.Client):   
-    config: cfg.Config = None
-     
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        
-        with open("config.json", "r") as f:
-            self.config: cfg.Config = cfg.Config.from_dict(json.load(f))
-
-client = CustomClient(intents=discord.Intents.GUILDS)
+client = CustomClient(intents=Intents.GUILDS)
 
 client.load_extensions("cogs")
     
