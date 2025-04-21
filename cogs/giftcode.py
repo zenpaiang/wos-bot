@@ -1,8 +1,9 @@
 from interactions.ext.paginators import Paginator
-from funcs import match_score, intable
+from lib.funcs import match_score, intable
+from lib.client import CustomClient
 import interactions as discord
+import lib.api as api
 import asyncio
-import api
 import json
 import time
 import re
@@ -11,8 +12,8 @@ def sanitize_username(name: str) -> str:
     return re.sub(r"^\[[A-Za-z0-9]{3}\]", "", name.replace("\u00a0", " ")).strip()
 
 class Giftcode(discord.Extension):
-    def __init__(self, bot):
-        self.bot = bot
+    def __init__(self, bot: CustomClient):
+        self.bot: CustomClient = bot
         self.api = api.API()
         
     async def async_start(self):
