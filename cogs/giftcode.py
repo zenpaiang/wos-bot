@@ -309,3 +309,10 @@ class Giftcode(discord.Extension):
         best_matches = [match for match in results if match[2] >= max_score * (1 - 0.3)]
         
         await ctx.send(choices=[{"name": player_name, "value": player_id} for player_id, player_name, _ in (best_matches[:25] if len(best_matches) else results[:25])])
+        
+    def drop(self):
+        asyncio.create_task(self.async_drop())
+        super().drop()
+        
+    async def async_drop(self):
+        await self.api.session.close()
