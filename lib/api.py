@@ -1,18 +1,22 @@
+import ddddocr
 import hashlib
 import aiohttp
 import certifi
+import base64
 import time
 import ssl
 
 class API:
     def __init__(self):
         self.inUse = False
-        self.lastUsed = None
+        self.lastUsed = 0
         
         self.headers = {
             "Content-Type": "application/x-www-form-urlencoded",
             "Accept": "application/json",
         }
+        
+        self.ocr = ddddocr.DdddOcr()
         
     async def init_session(self):
         self.session = aiohttp.ClientSession(
@@ -21,7 +25,7 @@ class API:
             )
         )
         
-    async def login_user(self, id: str) -> tuple[bool, str, str, dict | None]:        
+    async def login_user(self, id: str) -> tuple[bool, str, str, dict | None, bytes]:        
         now = time.time_ns()
         
         resp = await self.session.post(
@@ -34,6 +38,10 @@ class API:
             headers=self.headers,
             timeout=30
         )
+        
+        # fetch captcha
+        
+        now = time.time_ns()
 
         try:
             result = await resp.json()
@@ -42,25 +50,45 @@ class API:
         
         if "msg" in result:
             if result["msg"] != "success":
-                return False, "error", "login error", None
+                return False, "error", "login error", None, None
             else:
-                return False, "success", "success", result
+                captcha = await self.session.post(
+                    url="https://wos-giftcode-api.centurygame.com/api/captcha",
+                    data={
+                        "fid": id,
+                        "time": now,
+                        "init": 0,
+                        "sign": hashlib.md5(f"fid={id}&init=0&time={now}tB87#kPtkxqOS2".encode()).hexdigest()
+                    }
+                )
+                
+                try:
+                    captcha_json = await captcha.json()
+                except Exception as _:
+                    return False, "error", "captcha error", None, None
+                
+                if captcha_json["msg"] == "CAPTCHA GET TOO FREQUENT.":
+                    return False, "error", "captcha error", None, None
+                
+                return False, "success", "success", result, base64.b64decode(captcha_json["data"]["img"].split(",", 1)[1])
         else:
-            return False, "error", "rate limited", None
+            return False, "error", "rate limited", None, None
         
-    async def redeem_code(self, code: str, id: str) -> tuple[bool, str, str]:
-        exit, counter, message, _ = await self.login_user(id)
+    async def redeem_code(self, code: str, id: str) -> tuple[bool, str, str, dict]:
+        exit, counter, message, player_data, captcha_bytes = await self.login_user(id)
         
         if exit:
-            return exit, counter, message
+            return exit, counter, message, None
+        
+        predicted_captcha = self.ocr.classification(captcha_bytes)
         
         now = time.time_ns()
         
         resp = await self.session.post(
             url="https://wos-giftcode-api.centurygame.com/api/gift_code",
             data={
-                "cdk": code, "fid": id, "time": now,
-                "sign": hashlib.md5(f"cdk={code}&fid={id}&time={now}tB87#kPtkxqOS2".encode()).hexdigest()
+                "cdk": code, "fid": id, "time": now, "captcha_code": predicted_captcha,
+                "sign": hashlib.md5(f"captcha_code={predicted_captcha}&cdk={code}&fid={id}&time={now}tB87#kPtkxqOS2".encode()).hexdigest()
             },
             headers=self.headers,
             timeout=30
@@ -69,17 +97,19 @@ class API:
         try:
             result = await resp.json()
         except Exception as _:
-            return True, "error", "unknown error"
+            return True, "error", "unknown error", None
         
         if result["err_code"] == 40014:
-            return True, None, "gift code does not exist"
+            return True, None, "gift code does not exist", None
         elif result["err_code"] == 40007:
-            return True, None, "gift code has expired"
+            return True, None, "gift code has expired", None
         elif result["err_code"] == 40005:
-            return True, None, "gift code has been fully claimed"
+            return True, None, "gift code has been fully claimed", None
         elif result["err_code"] == 40008:
-            return False, "already_claimed", "already claimed"
+            return False, "already_claimed", "already claimed", player_data
         elif result["err_code"] == 20000:
-            return False, "successfully_claimed", "successfully claimed"
+            return False, "successfully_claimed", "successfully claimed", player_data
+        elif result["err_code"] == 40103:
+            return False, "error", "captcha error", None
         else:
-            return False, "error", "unknown error"
+            return False, "error", "unknown error", None

@@ -19,7 +19,16 @@ class Giftcode(discord.Extension):
     async def async_start(self):
         await self.api.init_session()
         
-    async def recursive_redeem(self, ctx: discord.SlashContext, code: str, players: list[str], counters: dict = None, depth: int = 0):
+    def _edit_local_name(self, player_id: str, new_name: str):
+        with open(self.bot.config.players_file, "r") as f:
+            players = json.load(f)
+            
+        players[player_id]["name"] = new_name
+        
+        with open(self.bot.config.players_file, "w") as f:
+            json.dump(players, f, indent=4)
+        
+    async def recursive_redeem(self, message: discord.Message, code: str, players: list[str], counters: dict = None, depth: int = 0):
         counters = counters or {"already_claimed": 0, "successfully_claimed": 0, "error": 0}
         
         batches = [(i, players[i:i + 20]) for i in range(0, len(players), 20)]
@@ -29,15 +38,15 @@ class Giftcode(discord.Extension):
         for i, batch in batches:
             msg = "redeeming gift code" if depth == 0 else f"redeeming gift code (retry {depth})"
             
-            await ctx.message.edit(f"{msg}... ({min(i, len(players))}/{len(players)}) | next update <t:{1 + int(time.time()) + (len(batch) * 3)}:R>")
+            await message.edit(content=f"{msg}... ({min(i, len(players))}/{len(players)}) | next update <t:{1 + int(time.time()) + (len(batch) * 3)}:R>")
             
             for player in batch:
                 start = time.time()
                 
-                exit, counter, result = await self.api.redeem_code(player, code)
+                exit, counter, result, _ = await self.api.redeem_code(code, player)
                 
                 if exit:
-                    await ctx.message.edit(f"error: {result}")
+                    await message.edit(content=f"error: {result}")
                     return
                 else:
                     counters[counter] += 1
@@ -46,9 +55,11 @@ class Giftcode(discord.Extension):
                         retry.append(player)
                     
                 await asyncio.sleep(max(0, 3 - (time.time() - start)))
+                
+        print(retry)
         
         if len(retry) > 0:
-            await self.recursive_redeem(ctx, code, retry, counters, depth + 1)
+            await self.recursive_redeem(message, code, retry, counters, depth + 1)
         else:
             msg = (
                 f"report: gift code `{code}`\n"
@@ -58,7 +69,7 @@ class Giftcode(discord.Extension):
                 f"made with ❤️ by zenpai :D"
             )
             
-            await ctx.message.edit(content=msg)
+            await message.edit(content=msg)
     
     @discord.slash_command(
         name="giftcode",
@@ -83,6 +94,10 @@ class Giftcode(discord.Extension):
             await ctx.send("error: waiting for api cooldown")
             return
         
+        if self.bot.config.redeem_locked_to_admins and (int(ctx.author.id) not in self.bot.config.admins) and int(ctx.author.id) != self.bot.config.bot_owner:
+            await ctx.send("error: not permitted to use this command", ephemeral=True)
+            return
+        
         self.api.inUse = True
         
         with open(self.bot.config.players_file, "r") as f:
@@ -90,9 +105,9 @@ class Giftcode(discord.Extension):
             
         players = list(playersObj.keys())
         
-        await ctx.send("waiting...")
+        message = await ctx.send("waiting...")
         
-        await self.recursive_redeem(ctx, code, players)
+        await self.recursive_redeem(message, code, players)
         
         self.api.lastUsed = time.time()
         self.api.inUse = False
@@ -106,6 +121,10 @@ class Giftcode(discord.Extension):
         sub_cmd_description="list all users in the database"
     )
     async def list_users(self, ctx: discord.SlashContext):
+        if self.bot.config.members_lock_to_admins and (int(ctx.author.id) not in self.bot.config.admins) and int(ctx.author.id) != self.bot.config.bot_owner:
+            await ctx.send("error: not permitted to use this command", ephemeral=True)
+            return
+        
         with open(self.bot.config.PLAYERS_FILE, "r") as f:
             players = json.load(f)
         
@@ -185,6 +204,10 @@ class Giftcode(discord.Extension):
         ]
     )
     async def add(self, ctx: discord.SlashContext, id: str, rank: int, discord: discord.User = None):
+        if self.bot.config.members_lock_to_admins and (int(ctx.author.id) not in self.bot.config.admins) and int(ctx.author.id) != self.bot.config.bot_owner:
+            await ctx.send("error: not permitted to use this command", ephemeral=True)
+            return
+        
         if intable(id):    
             with open(self.bot.config.players_file, "r") as f:
                 players = json.load(f)
@@ -234,6 +257,10 @@ class Giftcode(discord.Extension):
         ]
     )
     async def remove(self, ctx: discord.SlashContext, id: str):
+        if self.bot.config.members_lock_to_admins and (int(ctx.author.id) not in self.bot.config.admins) and int(ctx.author.id) != self.bot.config.bot_owner:
+            await ctx.send("error: not permitted to use this command", ephemeral=True)
+            return
+        
         with open(self.bot.config.players_file, "r") as f:
             players = json.load(f)
             
@@ -277,6 +304,10 @@ class Giftcode(discord.Extension):
         ]
     )
     async def set_rank(self, ctx: discord.SlashContext, id: str, rank: int):
+        if self.bot.config.members_lock_to_admins and (int(ctx.author.id) not in self.bot.config.admins) and int(ctx.author.id) != self.bot.config.bot_owner:
+            await ctx.send("error: not permitted to use this command", ephemeral=True)
+            return
+        
         with open(self.bot.config.players_file, "r") as f:
             players = json.load(f)
         
