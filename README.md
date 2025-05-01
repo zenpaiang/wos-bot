@@ -6,7 +6,7 @@ average accuracy in captcha detection: 70%
 
 # usage
 
-1. clone the repo: `git clone https://github.com/zenpaiang/wos-bot-captcha.git`
+1. clone the repo: `git clone --branch captcha https://github.com/zenpaiang/wos-bot.git`
 2. configure the bot's `config.json`
 3. install dependencies `pip install -r requirements.txt`
 
