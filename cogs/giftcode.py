@@ -28,19 +28,47 @@ class Giftcode(discord.Extension):
         with open(self.bot.config.players_file, "w") as f:
             json.dump(players, f, indent=4)
         
-    async def recursive_redeem(self, message: discord.Message, code: str, players: list[str], counters: dict = None, depth: int = 0):
+    async def recursive_redeem(self, message: discord.Message, code: str, players: list[tuple[str, float]], counters: dict = None, depth: int = 0):
         counters = counters or {"already_claimed": 0, "successfully_claimed": 0, "error": 0}
         
         batches = [(i, players[i:i + 20]) for i in range(0, len(players), 20)]
         
         retry = []
         
+        if depth > 0:
+            current_time = time.time()
+            wait_time = 0
+        
+            for pid, last_called in players:
+                ready_time = last_called + 20
+                
+                if current_time < ready_time:
+                    wait_time += ready_time - current_time
+                    current_time = ready_time
+                    
+                current_time += 3
+        
+            first_player_ready_in = players[0][1] + 20 - time.time()
+            initial_wait = max(0, first_player_ready_in)
+            waited_initial_wait = initial_wait == 0
+        else:
+            wait_time = 0
+            initial_wait = 0
+            waited_initial_wait = True
+        
         for i, batch in batches:
             msg = "redeeming gift code" if depth == 0 else f"redeeming gift code (retry {depth})"
             
-            await message.edit(content=f"{msg}... ({min(i, len(players))}/{len(players)}) | next update <t:{1 + int(time.time()) + (len(batch) * 3)}:R>")
+            await message.edit(content=f"{msg}... ({min(i, len(players))}/{len(players)}) | next update <t:{int(1 + time.time() + (len(batch) * 3) + wait_time)}:R>")
             
-            for player in batch:
+            if not waited_initial_wait:
+                await asyncio.sleep(initial_wait)
+                waited_initial_wait = True
+            
+            for player, ready in batch:
+                if time.time() < (ready + 20):
+                    await asyncio.sleep(ready + 20 - time.time())
+                
                 start = time.time()
                 
                 exit, counter, result, _ = await self.api.redeem_code(code, player)
@@ -52,11 +80,9 @@ class Giftcode(discord.Extension):
                     counters[counter] += 1
                     
                     if "error" in result:
-                        retry.append(player)
+                        retry.append((player, time.time()))
                     
                 await asyncio.sleep(max(0, 3 - (time.time() - start)))
-                
-        print(retry)
         
         if len(retry) > 0:
             await self.recursive_redeem(message, code, retry, counters, depth + 1)
@@ -103,7 +129,7 @@ class Giftcode(discord.Extension):
         with open(self.bot.config.players_file, "r") as f:
             playersObj = json.load(f)
             
-        players = list(playersObj.keys())
+        players = [(player, 0) for player in list(playersObj.keys())]
         
         message = await ctx.send("waiting...")
         
