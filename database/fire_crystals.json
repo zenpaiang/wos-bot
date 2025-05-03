@@ -1,0 +1,342 @@
+{
+    "fc1": {
+        "furnace": {
+            "fc": 660,
+            "rfc": 0
+        },
+        "command_center": {
+            "fc": 130,
+            "rfc": 0
+        },
+        "embassy": {
+            "fc": 165,
+            "rfc": 0
+        },
+        "infirmary": {
+            "fc": 130,
+            "rfc": 0
+        },
+        "war_academy": {
+            "fc": 0,
+            "rfc": 0
+        },
+        "infantry_camp": {
+            "fc": 295,
+            "rfc": 0
+        },
+        "lancer_camp": {
+            "fc": 295,
+            "rfc": 0
+        },
+        "marksman_camp": {
+            "fc": 295,
+            "rfc": 0
+        }
+    },
+    "fc2": {
+        "furnace": {
+            "fc": 790,
+            "rfc": 0
+        },
+        "command_center": {
+            "fc": 155,
+            "rfc": 0
+        },
+        "embassy": {
+            "fc": 195,
+            "rfc": 0
+        },
+        "infirmary": {
+            "fc": 155,
+            "rfc": 0
+        },
+        "war_academy": {
+            "fc": 355,
+            "rfc": 0
+        },
+        "infantry_camp": {
+            "fc": 355,
+            "rfc": 0
+        },
+        "lancer_camp": {
+            "fc": 355,
+            "rfc": 0
+        },
+        "marksman_camp": {
+            "fc": 355,
+            "rfc": 0
+        }
+    },
+    "fc3": {
+        "furnace": {
+            "fc": 1190,
+            "rfc": 0
+        },
+        "command_center": {
+            "fc": 235,
+            "rfc": 0
+        },
+        "embassy": {
+            "fc": 295,
+            "rfc": 0
+        },
+        "infirmary": {
+            "fc": 235,
+            "rfc": 0
+        },
+        "war_academy": {
+            "fc": 535,
+            "rfc": 0
+        },
+        "infantry_camp": {
+            "fc": 535,
+            "rfc": 0
+        },
+        "lancer_camp": {
+            "fc": 535,
+            "rfc": 0
+        },
+        "marksman_camp": {
+            "fc": 535,
+            "rfc": 0
+        }
+    },
+    "fc4": {
+        "furnace": {
+            "fc": 1400,
+            "rfc": 0
+        },
+        "command_center": {
+            "fc": 280,
+            "rfc": 0
+        },
+        "embassy": {
+            "fc": 350,
+            "rfc": 0
+        },
+        "infirmary": {
+            "fc": 280,
+            "rfc": 0
+        },
+        "war_academy": {
+            "fc": 630,
+            "rfc": 0
+        },
+        "infantry_camp": {
+            "fc": 630,
+            "rfc": 0
+        },
+        "lancer_camp": {
+            "fc": 630,
+            "rfc": 0
+        },
+        "marksman_camp": {
+            "fc": 630,
+            "rfc": 0
+        }
+    },
+    "fc5": {
+        "furnace": {
+            "fc": 1675,
+            "rfc": 0
+        },
+        "command_center": {
+            "fc": 335,
+            "rfc": 0
+        },
+        "embassy": {
+            "fc": 415,
+            "rfc": 0
+        },
+        "infirmary": {
+            "fc": 335,
+            "rfc": 0
+        },
+        "war_academy": {
+            "fc": 750,
+            "rfc": 0
+        },
+        "infantry_camp": {
+            "fc": 750,
+            "rfc": 0
+        },
+        "lancer_camp": {
+            "fc": 750,
+            "rfc": 0
+        },
+        "marksman_camp": {
+            "fc": 750,
+            "rfc": 0
+        }
+    },
+    "fc6": {
+        "furnace": {
+            "fc": 900,
+            "rfc": 60
+        },
+        "command_center": {
+            "fc": 180,
+            "rfc": 13
+        },
+        "embassy": {
+            "fc": 225,
+            "rfc": 13
+        },
+        "infirmary": {
+            "fc": 180,
+            "rfc": 13
+        },
+        "war_academy": {
+            "fc": 405,
+            "rfc": 25
+        },
+        "infantry_camp": {
+            "fc": 405,
+            "rfc": 25
+        },
+        "lancer_camp": {
+            "fc": 405,
+            "rfc": 25
+        },
+        "marksman_camp": {
+            "fc": 405,
+            "rfc": 25
+        }
+    },
+    "fc7": {
+        "furnace": {
+            "fc": 1080,
+            "rfc": 90
+        },
+        "command_center": {
+            "fc": 216,
+            "rfc": 19
+        },
+        "embassy": {
+            "fc": 270,
+            "rfc": 19
+        },
+        "infirmary": {
+            "fc": 216,
+            "rfc": 19
+        },
+        "war_academy": {
+            "fc": 486,
+            "rfc": 37
+        },
+        "infantry_camp": {
+            "fc": 486,
+            "rfc": 37
+        },
+        "lancer_camp": {
+            "fc": 486,
+            "rfc": 37
+        },
+        "marksman_camp": {
+            "fc": 486,
+            "rfc": 37
+        }
+    },
+    "fc8": {
+        "furnace": {
+            "fc": 1080,
+            "rfc": 120
+        },
+        "command_center": {
+            "fc": 216,
+            "rfc": 24
+        },
+        "embassy": {
+            "fc": 270,
+            "rfc": 30
+        },
+        "infirmary": {
+            "fc": 216,
+            "rfc": 24
+        },
+        "war_academy": {
+            "fc": 486,
+            "rfc": 54
+        },
+        "infantry_camp": {
+            "fc": 486,
+            "rfc": 54
+        },
+        "lancer_camp": {
+            "fc": 486,
+            "rfc": 54
+        },
+        "marksman_camp": {
+            "fc": 486,
+            "rfc": 54
+        }
+    },
+    "fc9": {
+        "furnace": {
+            "fc": 1260,
+            "rfc": 180
+        },
+        "command_center": {
+            "fc": 252,
+            "rfc": 36
+        },
+        "embassy": {
+            "fc": 315,
+            "rfc": 43
+        },
+        "infirmary": {
+            "fc": 252,
+            "rfc": 36
+        },
+        "war_academy": {
+            "fc": 567,
+            "rfc": 79
+        },
+        "infantry_camp": {
+            "fc": 567,
+            "rfc": 79
+        },
+        "lancer_camp": {
+            "fc": 567,
+            "rfc": 79
+        },
+        "marksman_camp": {
+            "fc": 567,
+            "rfc": 79
+        }
+    },
+    "fc10": {
+        "furnace": {
+            "fc": 1575,
+            "rfc": 420
+        },
+        "command_center": {
+            "fc": 315,
+            "rfc": 84
+        },
+        "embassy": {
+            "fc": 391,
+            "rfc": 103
+        },
+        "infirmary": {
+            "fc": 315,
+            "rfc": 84
+        },
+        "war_academy": {
+            "fc": 706,
+            "rfc": 187
+        },
+        "infantry_camp": {
+            "fc": 706,
+            "rfc": 187
+        },
+        "lancer_camp": {
+            "fc": 706,
+            "rfc": 187
+        },
+        "marksman_camp": {
+            "fc": 706,
+            "rfc": 187
+        }
+    }
+}
