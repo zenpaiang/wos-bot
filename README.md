@@ -9,8 +9,9 @@ this bot uses an onnx based OCR model, which is only **~50MB** in size, meaning 
 # usage
 
 1. clone the repo: `git clone --branch captcha https://github.com/zenpaiang/wos-bot.git`
-2. configure the bot's `config.json`
-3. install dependencies `pip install -r requirements.txt`
+2. [configure](#configuration) the bot's `config.json`
+3. rename `players.example.json` to `players.json`
+4. install dependencies `pip install -r requirements.txt`
 
 # configuration
 
