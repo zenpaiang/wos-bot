@@ -67,6 +67,6 @@ the last 4 values will be configurable from inside wos-bot in a future update.
 
 | feature | status | upcoming feature | status |
 | --- | --- | --- | --- |
-| fire crystal database | :x: | automatic fetching / caching | :x: |
-| chief gear database | :x: |
-| chief charm database | :x: |
+| fire crystal database | :white_check_mark: | automatic fetching / caching | :x: |
+| chief gear database | :white_check_mark: |
+| chief charm database | :white_check_mark: |
