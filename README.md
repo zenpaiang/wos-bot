@@ -49,6 +49,12 @@ the last 4 values will be configurable from inside wos-bot in a future update.
 1. `time`: calculate the amount of time reduced after construction buffs
 2. `gathering`: calculate how to distribute your gathering queues to equalize your resources
 
+## database (`database`)
+
+1. `chief_gear`: get information about a rarity of chief gear or the amount of resources needed to upgrade to that rarity
+2. `chief_charm`: get information about a rarity of chief charm or the amount of resources needed to upgrade to that rarity
+3. `fire_crystals`: get amount of fire crystals needed to upgrade buildings
+
 # upcoming / complete feature list
 
 :x: = not developed :warning: = developed but untested :white_check_mark: = working + tested
