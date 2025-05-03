@@ -135,4 +135,4 @@ class Configuration(discord.Extension):
         
         self.save_config()
         
-        await ctx.send("successfully removed useer from the admin list", ephemeral=True)
+        await ctx.send("successfully removed user from the admin list", ephemeral=True)
