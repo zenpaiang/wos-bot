@@ -2,7 +2,9 @@
 
 a whiteout survival giftcode redeemer + utility bot using [ddddocr](https://github.com/sml2h3/ddddocr) for captcha detection based on the upcoming (now abandoned) [v2 branch of wos-bot](https://github.com/zenpaiang/wos-bot/tree/v2)
 
-average accuracy in captcha detection: 70%
+# hardware requirements
+
+this bot uses an onnx based OCR model, which is only **~50MB** in size, meaning it runs at under **100MB** of RAM, and doesn't need any special hardware such as a CUDA supported GPU. this means it also means that the storage space needed is **<1GB**, allowing it to be run on a cheap VPS, a free one, or even on small SBCs such as a [Raspberry Pi](https://www.raspberrypi.com/).
 
 # usage
 
