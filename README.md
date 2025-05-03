@@ -49,11 +49,13 @@ the last 4 values will be configurable from inside wos-bot in a future update.
 
 # upcoming / complete feature list
 
+:x: = not developed :warning: = developed but untested :white_check_mark: = working + tested
+
 ## giftcode redemption
 
-| feature | status | upcoming feature | status
+| feature | status | upcoming feature | status |
 | --- | --- | --- | --- |
-| adding users | :white_check_mark: | auto renaming of users during redemption | :x: |
+| adding users | :white_check_mark: | auto renaming of users during redemption | :white_check_mark: |
 | removing users | :white_check_mark: | linking wos users to discord users | :white_check_mark: |
 | listing users | :x: | username sync between wos and discord users | :x: |
 | redemption of giftcodes | :white_check_mark: | permission system | :warning: |
@@ -61,8 +63,8 @@ the last 4 values will be configurable from inside wos-bot in a future update.
 
 ## database
 
-| feature | status | upcoming feature | status
+| feature | status | upcoming feature | status |
 | --- | --- | --- | --- |
-| fire crystal database | :x: | automatic fetching / caching | :x:
+| fire crystal database | :x: | automatic fetching / caching | :x: |
 | chief gear database | :x: |
 | chief charm database | :x: |
