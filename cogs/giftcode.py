@@ -27,6 +27,12 @@ class Giftcode(discord.Extension):
         
         with open(self.bot.config.players_file, "w") as f:
             json.dump(players, f, indent=4)
+            
+    def _get_local_name(self, player_id: str) -> str:
+        with open(self.bot.config.players_file, "r") as f:
+            players = json.load(f)
+            
+        return players[player_id]["name"] if player_id in players else None
         
     async def recursive_redeem(self, message: discord.Message, code: str, players: list[tuple[str, float]], counters: dict = None, depth: int = 0):
         counters = counters or {"already_claimed": 0, "successfully_claimed": 0, "error": 0}
@@ -71,7 +77,7 @@ class Giftcode(discord.Extension):
                 
                 start = time.time()
                 
-                exit, counter, result, _ = await self.api.redeem_code(code, player)
+                exit, counter, result, player_data = await self.api.redeem_code(code, player)
                 
                 if exit:
                     await message.edit(content=f"error: {result}")
@@ -81,6 +87,9 @@ class Giftcode(discord.Extension):
                     
                     if "error" in result:
                         retry.append((player, time.time()))
+                        
+                    if player_data and sanitize_username(player_data["data"]["nickname"]) != self._get_local_name(player) and self.bot.config.auto_rename_users_during_redemption:
+                        self._edit_local_name(player, sanitize_username(player_data["data"]["nickname"]))
                     
                 await asyncio.sleep(max(0, 3 - (time.time() - start)))
         
