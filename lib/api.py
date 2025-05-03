@@ -90,12 +90,7 @@ class API:
         if success:
             predicted_captcha = self.ocr.classification(captcha_bytes)
         else:
-            success, captcha_bytes = await self.fetch_captcha(id)
-            
-            if success:
-                predicted_captcha = self.ocr.classification(captcha_bytes)
-            else:
-                return False, "error", "captcha error", None
+            return False, "error", "captcha error", None
         
         now = time.time_ns()
         
