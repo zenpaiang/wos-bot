@@ -1,6 +1,6 @@
 # wos-bot
 
-a whiteout survival giftcode redeemer + utility bot using [ddddocr](https://github.com/sml2h3/ddddocr) for captcha detection based on the upcoming (now abandoned) [v2 branch of wos-bot](https://github.com/zenpaiang/wos-bot/tree/v2)
+a whiteout survival giftcode redeemer + utility bot using [ddddocr](https://github.com/sml2h3/ddddocr) for captcha detection
 
 # hardware requirements
 
