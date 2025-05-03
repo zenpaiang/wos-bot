@@ -1,5 +1,5 @@
 import interactions as discord
-from funcs import match_score
+from lib.funcs import match_score
 import json
 
 class Database(discord.Extension):
