@@ -36,7 +36,7 @@ configuration is done by renaming `config.example.json` to `config.json`, which 
 the last 4 values will be configurable from inside wos-bot in a future update.
 
 > [!WARNING]
-> some of the 4 features are still in development
+> wos to discord username syncing is currently under development and does not work.
 
 # migration from v1
 
@@ -50,3 +50,12 @@ after cloning this repository:
 # commands / features
 
 view the commands and features list [here](commands_and_features.md)
+
+# to-do list
+
+- [x] ~~captcha detection + v2 update~~ ([`c5c5b47`](https://github.com/zenpaiang/wos-bot/commit/c5c5b4798e929320dce7550541c79e1fa3909414))
+- [ ] functioning user list
+- [ ] wos-database cachine
+- [ ] wos to discord player name sync
+- [ ] auto update system
+- [ ] bulk addition of ids
