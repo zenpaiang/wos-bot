@@ -160,7 +160,7 @@ class Giftcode(discord.Extension):
             await ctx.send("error: not permitted to use this command", ephemeral=True)
             return
         
-        with open(self.bot.config.PLAYERS_FILE, "r") as f:
+        with open(self.bot.config.players_file, "r") as f:
             players = json.load(f)
         
         rank_lists = {1: [], 2: [], 3: [], 4: [], 5: []}
