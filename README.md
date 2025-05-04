@@ -44,7 +44,7 @@ the last 4 values will be configurable from inside wos-bot in a future update.
 > doing this WILL override your old `players.json` file so if for whatever reason you still want the old version, please make a backup before doing this.
 
 after cloning this repository:
-1. copy your old `players.json` file here
+1. copy your old `players.json` file into the directory
 2. run the migration tool `python migration_tool.py`
 
 # commands / features
