@@ -11,7 +11,7 @@ this bot uses an onnx based OCR model which is not only fast, but is **~50MB** i
 > [!NOTE]
 > if you are migrating from v1, head to [migration](#migration-from-v1)
 
-1. clone the repo: `git clone --branch captcha https://github.com/zenpaiang/wos-bot.git`
+1. clone the repo: `git clone https://github.com/zenpaiang/wos-bot.git`
 2. [configure](#configuration) the bot's `config.json`
 3. rename `players.example.json` to `players.json`
 4. install dependencies `pip install -r requirements.txt`
