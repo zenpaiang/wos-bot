@@ -58,7 +58,7 @@ view the commands and features list [here](commands_and_features.md)
 - [x] ~~captcha detection + v2 update~~ ([`c5c5b47`](https://github.com/zenpaiang/wos-bot/commit/c5c5b4798e929320dce7550541c79e1fa3909414))
 - [x] ~~functioning user list~~ ([`342f626`](https://github.com/zenpaiang/wos-bot/commit/342f6262b51cde98890de80d7e530ec6092ec2c1))
 - [ ] better user list with search feature
-- [ ] wos-database cachine
+- [ ] wos-database caching
 - [ ] wos to discord player name sync
 - [ ] auto update system
 - [ ] bulk addition of ids
