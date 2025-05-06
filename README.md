@@ -10,6 +10,10 @@ if you like the project, please give it a :star:! 😊
 
 this bot uses an onnx based OCR model which is not only fast, but is **~50MB** in size, meaning the bot runs at under **100MB** of RAM, and doesn't need any special hardware such as a CUDA supported GPU. this also means that the storage space needed is **<1GB**, allowing it to be run on a cheap VPS, a free one, or even on small SBCs.
 
+# issues
+
+please report any issues by creating an issue on github or messaging me on discord `@zenpaiang`
+
 # usage
 
 > [!NOTE]
@@ -22,7 +26,7 @@ this bot uses an onnx based OCR model which is not only fast, but is **~50MB** i
 5. run the bot using `python bot.py` or `python3 bot.py`
 
 > [!TIP]
-> if you're on python3.13 and above, run `pip install -r requirements.txt --ignore-requires-python` for step 4 instead. this is a temporary workaround.
+> if you're on python 3.13 and above, run `pip install -r requirements.txt --ignore-requires-python` for step 4 instead. this is a temporary workaround.
 
 # configuration
 
