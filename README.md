@@ -19,7 +19,8 @@ this bot uses an onnx based OCR model which is not only fast, but is **~50MB** i
 4. install dependencies `pip install -r requirements.txt` or `pip3 install -r requirements.txt`
 5. run the bot using `python bot.py` or `python3 bot.py`
 
-*note: if you're on python 3.13 and above, run `pip install -r requirements.txt --ignore-requires-python` instead. this is a temporary workaround.*
+> [!TIP]
+> if you're on python3.13 and above, run `pip install -r requirements.txt --ignore-requires-python` for step 4 instead. this is a temporary workaround
 
 # configuration
 
