@@ -4,7 +4,7 @@
     "players_file": "players.json",
     "bot_owner": 0,
     "auto_rename_users_during_redemption": true,
-    "sync_discord_usernames": true,
+    "sync_discord_usernames": false,
     "redeem_locked_to_admins": false,
     "members_lock_to_admins": true
 }

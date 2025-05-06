@@ -35,19 +35,26 @@ configuration is done by renaming `config.example.json` to `config.json`, which 
     "players_file": "players.json",
     "bot_owner": 0,
     "auto_rename_users_during_redemption": true,
-    "sync_discord_usernames": true,
+    "sync_discord_usernames": false,
     "redeem_locked_to_admins": false,
     "members_lock_to_admins": true
 }
 ```
 
-`token`: your bot token. for instructions on how to obtain one, click [here](https://interactions-py.github.io/interactions.py/Guides/02%20Creating%20Your%20Bot/)  
+`token`: your bot token. for instructions on how to obtain one, click [here](https://interactions-py.github.io/interactions.py/Guides/02%20Creating%20Your%20Bot/) 
+
 `admins`: this value is configured inside the bot  
+
 `players_file`: this value stores the path to the players database. do not change if you don't know what you're doing.  
+
 `bot_owner`: put your discord user ID here. for instructions on how to get it, click [here](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID)  
+
 `auto_rename_users_during_redemption`: this value is configured inside the bot with `/admin settings`. it controls whether to automatically rename users in your database during redemption.  
+
 `sync_discord_usernames`: this value is configured inside the bot with `/admin settings`. it controls whether the bot will sync wos usernames to linked discord users. (**note: this feature is currently under development and does not work.**)  
+
 `redeem_locked_to_admins`: this value is configured inside the bot with `/admin settings`. it controls whether `/redeem` is usable by non-admins  
+
 `members_lock_to_admins`: this value is configured inside the bot with `/admin settings`. it controls whether `/giftcode users` is usable by non-admins
 
 # migration from v1
