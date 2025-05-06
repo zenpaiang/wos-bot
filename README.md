@@ -2,6 +2,8 @@
 
 a whiteout survival giftcode redeemer + utility bot using [ddddocr](https://github.com/sml2h3/ddddocr) for captcha detection
 
+this bot is not related to [relo's bot](https://github.com/Reloisback/Whiteout-Survival-Discord-Bot) in any way.
+
 if you like the project, please give it a :star:! 😊
 
 # hardware requirements
@@ -20,7 +22,7 @@ this bot uses an onnx based OCR model which is not only fast, but is **~50MB** i
 5. run the bot using `python bot.py` or `python3 bot.py`
 
 > [!TIP]
-> if you're on python3.13 and above, run `pip install -r requirements.txt --ignore-requires-python` for step 4 instead. this is a temporary workaround
+> if you're on python3.13 and above, run `pip install -r requirements.txt --ignore-requires-python` for step 4 instead. this is a temporary workaround.
 
 # configuration
 
@@ -28,21 +30,25 @@ configuration is done by renaming `config.example.json` to `config.json`, which 
 
 ```json
 {
-    "token": "", // your bot token
-    "admins": [], // automatically configured by the bot, can change manually if wanted
-    "players_file": "players.json", // players database
-    "bot_owner": 0, // replace with your discord user ID
-    "auto_rename_users_during_redemption": true, // whether to rename users during redemption
-    "sync_discord_usernames": true, // whether to sync discord usernames with wos usernames
-    "redeem_locked_to_admins": false, // whether the /redeem command is locked to admins
-    "members_lock_to_admins": true // whether member modification is locked to admins
+    "token": "[PUT YOUR BOT TOKEN HERE]",
+    "admins": [],
+    "players_file": "players.json",
+    "bot_owner": 0,
+    "auto_rename_users_during_redemption": true,
+    "sync_discord_usernames": true,
+    "redeem_locked_to_admins": false,
+    "members_lock_to_admins": true
 }
 ```
 
-the last 4 values will be configurable from inside wos-bot in a future update.
-
-> [!WARNING]
-> wos to discord username syncing is currently under development and does not work.
+`token`: your bot token. for instructions on how to obtain one, click [here](https://interactions-py.github.io/interactions.py/Guides/02%20Creating%20Your%20Bot/)  
+`admins`: this value is configured inside the bot  
+`players_file`: this value stores the path to the players database. do not change if you don't know what you're doing.  
+`bot_owner`: put your discord user ID here. for instructions on how to get it, click [here](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID)  
+`auto_rename_users_during_redemption`: this value is configured inside the bot with `/admin settings`. it controls whether to automatically rename users in your database during redemption.  
+`sync_discord_usernames`: this value is configured inside the bot with `/admin settings`. it controls whether the bot will sync wos usernames to linked discord users. (**note: this feature is currently under development and does not work.**)  
+`redeem_locked_to_admins`: this value is configured inside the bot with `/admin settings`. it controls whether `/redeem` is usable by non-admins  
+`members_lock_to_admins`: this value is configured inside the bot with `/admin settings`. it controls whether `/giftcode users` is usable by non-admins
 
 # migration from v1
 
