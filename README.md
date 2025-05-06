@@ -13,12 +13,13 @@ this bot uses an onnx based OCR model which is not only fast, but is **~50MB** i
 > [!NOTE]
 > if you are migrating from v1, head to [migration](#migration-from-v1)
 
-*note: there are currently some known issues involving ddddocr not installing on python 3.13 and above. for now, please use python 3.12.x or below*
-
 1. clone the repo: `git clone https://github.com/zenpaiang/wos-bot.git`
 2. [configure](#configuration) the bot's `config.json`
 3. rename `players.example.json` to `players.json`
-4. install dependencies `pip install -r requirements.txt`
+4. install dependencies `pip install -r requirements.txt` or `pip3 install -r requirements.txt`
+5. run the bot using `python bot.py` or `python3 bot.py`
+
+*note: if you're on python 3.13 and above, run `pip install -r requirements.txt --ignore-requires-python` instead. this is a temporary workaround.*
 
 # configuration
 
