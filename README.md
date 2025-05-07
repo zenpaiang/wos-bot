@@ -83,3 +83,4 @@ view the commands and features list [here](commands_and_features.md)
 - [ ] wos to discord player name sync
 - [ ] auto update system
 - [ ] bulk addition of ids
+- [ ] interactive setup process
